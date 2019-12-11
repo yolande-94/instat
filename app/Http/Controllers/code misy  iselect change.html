@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>visualisation</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('admin')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+         #InnerDiv{
+            overflow-y: scroll;
+            height: 690px;
+         }
+         #tb1{
+            float: left;
+            width: 400px;
+            margin-left: 0px;
+            border: none;
+         }
+         #tb2{
+            
+            margin-left: 50px;
+         }
+         #panel1 {
+             margin-left:5px;
+              width: 400px;
+               }
+        #panel {
+                      margin-left: 20px;
+                      min-height: 620px;
+                      background-color: white;
+                      width: 50%;
+        }
+        #page-wrapper{
+              
+              background-color: white;
+             
+                    }
+        #nav{
+              
+              background-color: #005a57;
+             
+        }
+
+
+    </style>
+
+    </head>
+
+    <body>
+    
+    <div id="soft-all-wrapper">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+
+        <!-- Navigation --> 
+        
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                       
+                <a class="navbar-brand" href="">Administrateur</a>
+            </div>
+
+              <ul class="nav navbar-top-links navbar-right">
+                
+                
+            </ul>
+
+            
+        </nav>
+
+
+
+        <div id="page-wrapper">
+          
+             
+          <center>
+              <span>Enquete</span>
+              <select style="width: 200px;" class="surveyname" id="survey">
+                <?php foreach ($surveys as $survey): ?>
+                  
+                  <option value="<?= $survey->id; ?>"><?= $survey->name; ?></option>
+                 <?php endforeach ?>
+              </select>
+
+              <span>Indicateurs</span>
+              <?php foreach ($indicatorsBySurvey as $id_survey => $indicators): ?>
+              <select style="width: 200px;" class="namesurvey" id="survey-<?= $id_survey; ?>">
+                <?php foreach ($indicators as $id => $title): ?>
+
+                  <option value="<?= $id; ?>"><?= $title; ?></option>
+                <?php endforeach ?>
+              </select>
+              <?php endforeach ?>
+
+
+          </center>
+
+
+           <div class="container">
+          <div class="col-lg-4">
+          
+              <span>Enquete</span>
+              <div class="form-group">
+              <select class="form-control" name="survey" id="survey">
+                <option value="0" disabled="true" selected="true">--selectionner un enquetes--</option>
+                <?php foreach ($surveys as $survey): ?>
+                  
+                  <option><?= $survey->name; ?></option>
+                 <?php endforeach ?>
+              </select>
+              </div>
+
+              <span>Indicateurs</span>
+              <div class="form-group">
+              <select class="form-control" id="indicator" name="indicator">
+                
+                  
+                  <option value="0"disabled="true" selected="true">--selectionner un indicateurs--</option>
+                 
+              </select>
+              </div>
+
+              </div>
+              </div>
+
+           
+
+
+
+                <div class="col-lg-8">
+                    
+                    
+                    <!-- /.panel -->
+                    
+                        
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" >
+                            <div class="row">
+                                
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  table-striped" id="tb1">
+                                        
+                                                <tr>
+                                                    
+                                                    <th width="200px">Nom Region</th>
+                                                    <th width="100px">Valeur</th>
+                                                    
+                                                </tr>
+                                            
+                                                 
+                                                <tr>
+                                                    
+                                                    <td></td>
+                                                    <td></td>
+                                                    
+                                                    
+                                                </tr>
+                                                
+                                               
+                                            
+                                        </table>
+                                        
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                
+                                
+                     </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </div>
+                            <!-- /.row -->
+                        
+                        <!-- /.panel-body -->
+                    </div>
+            
+        </div>
+                <!-- /.col-lg-8 -->
+                
+
+        </div>
+       
+
+    
+    @include('admin.include.stylfoot')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    (function($){
+
+      $('#survey').change(function(event){
+
+          var id_survey = $(this).val();
+          $('#survey-'+id_survey).show().siblings().hide();
+      });
+    })(jQuery);   
+
+</script>
+
+</body>
+
+
+</html>
+                    
+
+                   

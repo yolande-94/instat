@@ -1,0 +1,137 @@
+SELECT i.*,r.*,rr.*,rg.* from result_regions rg INNER JOIN result_globals rr on rr.id_indicator=rg.id_indicator inner JOIN regions r on r.id=rg.id_region inner JOIN indicators i on i.id=rg.id_indicator
+
+
+SELECT r.*,rr.*,rg.* from result_regions rg INNER JOIN result_globals rr on rr.id_indicator=rg.id_indicator inner JOIN regions r on r.id=rg.id_region inner JOIN indicators i on i.id=rg.id_indicator
+
+
+
+
+
+$data = DB::table(regions)
+
+      ->join('result_regions',)
+      ->join('result_globals','result_globals.id_indicator','=','id_indicator')
+
+      ->join('result_globals','result_regions.id_indicator','=','result_globals.id_indicator')
+      ->join('indicators','indicators.id','=','result_globals.id_indicator')
+      ->join('regions','regions.id','=','regions.id_region')
+
+
+
+      SELECT * FROM `result_regions`
+INNER JOIN PRET ON (regions.id=result_globals.id_region)
+
+
+
+
+
+
+DB::select('SELECT value FROM result_regions INNER JOIN regions ON result_regions.id_region=regions.id  WHERE result_regions.id_region = (SELECT regions.id FROM regions WHERE regions.name= "ANALAMANGA")');
+
+
+
+SELECT * 
+FROM result_globals,
+     indicators 
+WHERE indicators.id=result_globals.id_indicator
+
+
+SELECT * FROM (SELECT SELECT r.*,rr.* from result_regions rr LEFT JOIN regions r on rr.id_region=r.id) LEFT JOIN (SELECT i.*,s.* from indicators i LEFT JOIN surveys s on i.id_survey=s.id)  on r.id=rg.id_region inner JOIN indicators i on i.id=rg.id_indicator
+
+SELECT vr.id_region,vr.name region,ve.id_survey,ve.name survey,vr.id_indicator,ve.title indicator,ve.alias_title alias,vr.value,vr.year FROM `vue_regions` vr LEFT JOIN `vue_enquetes` ve ON vr.id_indicator=ve.id
+
+
+/*$resultregions = DB::table('indicators')
+                          ->join('surveys','surveys.id','=','indicators.id_survey')
+                          ->join('result_regions','result_regions.id_indicator','=','indicators.id')
+                          ->select('indicators.id','indicators.title','surveys.id','surveys.name','result_regions.value','result_regions.year','result_regions.id_indicator')
+                          ->get();*/
+
+        /*$resultregions  = DB::table('result_regions')
+                            ->join('regions','regions.id','=','result_regions.id_region')
+                            ->join('indicators','indicators.id','=','result_regions.id_indicator')
+                            
+                            ->select('result_regions.id','regions.name','result_regions.value','result_regions.id_indicator','result_regions.year','indicators.title')
+                            ->get();*/
+
+
+
+
+
+
+                            
+$(document).on('change','.surveyname',function(){
+
+        //console.log("its change");
+        var id = $(this).val();
+        var div = $(this).parent();
+        console.log(id);
+        var op="";
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to('findyear')!!}',
+            data:{'id':id},
+            dataType:'json',
+            success:function(data){
+              console.log("data.year");
+              //console.log(data);
+              //console.log(data.length);
+            },
+            //error:function(){}
+
+        })
+
+
+      });
+
+*public function findyear(Request $request)
+    {
+      $p=Survey::select('year')->where('id',$request->id)->first();
+      return response()->json($p);
+    }*/
+
+
+/*$id_indicators = Input::get('id_indicator');
+       $result_regions = DB::table('result_regions')
+                           ->join('regions','regions.id','=','result_regions.id_region')
+                          ->join('indicators','indicators.id','=','result_regions.id_indicator')
+                            
+                          ->select('regions.name','result_regions.value')
+                          ->where('id_indicator','=',$id_indicators)
+                          ->get();
+       return response()->json($result_regions);*/
+
+function hideMsg() {
+        $("#server-results").html("");
+    }
+
+
+
+    $(document).ready(function(){
+      
+      $(document).on('change','.form-control',function(){
+
+        //console.log("its change");
+        var id_enquet = $(this).val();
+        var a = $(this).parent();
+        //console.log(id_enquete);
+        var op="";
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to('findan')!!}',
+            data:{'id':id_enquet},
+            dataType:'json',
+            success:function(data){
+              console.log("year");
+              console.log(data.year);
+              a.show('.year').val(data.year);
+              
+              //console.log(data.length);
+            },
+            //error:function(){}
+
+        })
+
+
+      });
+});
