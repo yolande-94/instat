@@ -11,9 +11,11 @@ use App\ResultRegion;
 use App\Region;
 use App\Indicator;
 use DB;
-
+use DataTables;
 class VisualisationController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -22,14 +24,22 @@ class VisualisationController extends Controller
     public function index()
     {
         $surveys = Survey::all();
+
+        //$ensemble=ResultGlobal::all();
         
             $survey = DB::table('surveys')->first();
+            $indicatorsk = DB::table('indicators')->first();
+
             if($survey) {
-            $year=Survey::select('year')->where('id',$survey->id)->first();
-                    $indicator = Indicator::where('id_survey','=',$survey->id)->first();
-                return view('admin.affichage.visualisation',compact('surveys','resultregions','survey', 'indicator', 'year'));
-        }
-        else return 'Aucune donnée disponible pour l\'instant.';
+                $year=Survey::select('year')->where('id',$survey->id)->first();
+                $typsurvey=Survey::select('name')->where('id',$survey->id)->first();
+                $indicator = Indicator::where('id_survey','=',$survey->id)->first();
+                    
+                return view('admin.affichage.visualisation',compact('surveys','resultregions','survey', 'indicator', 'year','typsurvey'));
+              }
+        
+
+        else return view('admin.affichage.erreur');
         
     }
 
@@ -47,11 +57,28 @@ class VisualisationController extends Controller
 
 
 
+    public function typenquete(Request $request)
+    {
+      $typ=Survey::select('name')->where('id',$request->id)->first();
+      return response()->json($typ);
+    }
+
+
+
      public function findyear(Request $request)
     {
       $p=Survey::select('year')->where('id',$request->id)->first();
       return response()->json($p);
     }
+
+
+     public function findindics(Request $request)
+    {
+      $p=Indicator::select('title')->where('id',$request->id)->first();
+      return response()->json($p);
+    }
+
+
 
      
 
@@ -65,6 +92,7 @@ class VisualisationController extends Controller
                     ->join('indicators','indicators.id','=','result_regions.id_indicator') 
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name')
+                    ->orderBy('regions.name', 'ASC')
                     ->where('result_regions.id_indicator',$request->id_indicators);
                             
         }
@@ -84,6 +112,8 @@ class VisualisationController extends Controller
                     ->join('indicators','indicators.id','=','result_regions.id_indicator') 
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name')
+                    ->orderBy('regions.name', 'ASC')
+                    
                     ->where('result_regions.id_indicator',$indicators->id);
                 }
                 else $data = array();
@@ -112,53 +142,64 @@ class VisualisationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function chart()
+
+      {
+
+         $surveys = DB::table('surveys')->first();
+
+        $indicators = Indicator::where('id_survey','=',$surveys->id)->first();
+
+        $result = \DB::table('result_regions')
+                    ->join('indicators','indicators.id','=','result_regions.id_indicator') 
+                    ->join('regions','regions.id','=','result_regions.id_region')
+                    ->select('result_regions.value','regions.name')
+                    ->where('result_regions.id_indicator',$indicators->id)
+                    ->get();
+                    
+        return response()->json($result);
+      }
+
+
+
+
+      public function ensemble(Request $request)   
+                    
     {
-        //
+      $p=DB::table('result_globals')
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->select('result_globals.ensemble')
+                    ->where('result_globals.id',$request->id)->first();
+        return response()->json($p);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+   
+   public function urbain(Request $request)   
+                    
     {
-        //
+      $p=DB::table('result_globals')
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->select('result_globals.urbain')
+                    ->where('result_globals.id',$request->id)->first();
+        return response()->json($p);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+public function rural(Request $request)   
+                    
     {
-        //
+      $p=DB::table('result_globals')
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->select('result_globals.rural')
+                    ->where('result_globals.id',$request->id)->first();
+        return response()->json($p);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
+
+
+    
 }

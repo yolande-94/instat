@@ -12,8 +12,16 @@
     <title>visualisation</title>
     
     @include('admin.include.stylhead')
+
+
 <style>
-    .cs-loader {
+  .container{
+    position: absolute;
+    right: 18%;
+    bottom: 8%;
+  }
+
+ .cs-loader {
   position: relative;
   top: 0;
   left: 0;
@@ -113,6 +121,12 @@
   -webkit-animation: lol 3s 500ms infinite ease-in-out;
   animation: lol 3s 500ms infinite ease-in-out;
 }
+.card{
+  position: absolute;
+  right: 50px;
+  top: 30%;
+
+}
 
 </style>
     </head>
@@ -121,29 +135,32 @@
 
     <div id="soft-all-wrapper">
 
-        <!-- Navigation -->
+        
        
           @include('admin.include.nav')
            <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 align="center" class="page-header">Importation</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-               
 
-              <div class="card">
-              <form id="my_form" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-6">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+
+                        <h2 align="center" class="panel"><strong>Importation</strong></h2>
+                        <br>
+                    </div>
+
+                    <div class="panel-body">
+                        <form id="my_form" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                  <div class="form-group row{{ $errors->has('survey') ? 'has-error':'' }}">
                     <label form="survey" class="col-sm-2 col-form-label">Enquetes</label>
                     <div class="col-sm-10">
                         <select id="id_survey" class="select_survey" name="id_survey" >
                           <option value="0" disabled="true" selected="true">selectionner un enquetes...</option>
-                            @foreach($surveys as $survey)
-                                <option value="{{ $survey->id }}">{{ $survey->name}} </option>
-                                  @endforeach
+                                @foreach($surveys as $survey)
+                                <option value="{{ $survey->id }}"> {{ $survey->alias_survey}} </option>
+                                @endforeach
                         </select>     
                     </div>
                 </div>
@@ -170,6 +187,7 @@
                   </div>
 
                 </div>
+                
 
                 <div class="form-group row">
                 <div class="col-sm-10 offset-sm-2">
@@ -179,6 +197,8 @@
 
                     <div id="server-results"><!-- For server results --></div>
                 </form>
+                <br>
+                 <hr> 
                  <div id="upload-progress" style="display: none">
                     <p id="msg">Enregistrement en cours...</p>
                   <div class="cs-loader">
@@ -189,18 +209,22 @@
                         <label> ●</label>
                         <label> ●</label>
                         <label> ●</label>
+                        
                       </div>
                     </div>
                     
                   </div>
-                  <hr> 
+                 
                    <br>
 
-                  <br><br>
-        
-
-           </div>
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
             
+               
 
 
 

@@ -135,3 +135,123 @@ function hideMsg() {
 
       });
 });
+
+<svg baseprofile="tiny" fill="#7c7c7c" 
+height="700" stroke="#ffffff"
+ stroke-linecap="round" stroke-linejoin="round" stroke-width="2" version="1.2" viewbox="0 0 1000 1985" width="650" top="10%" xmlns="http://www.w3.org/2000/svg">
+
+
+
+
+
+
+
+  var regions= [
+    {
+        "region_name": "Alaotra Mangoro",
+        "region_code": "alaomang",
+       
+    },
+    {
+        "region_name": "Amoron'I Mania",
+        "region_code": "amorman",
+       
+    },
+    {
+        "region_name": "Analamanga",
+        "region_code": "analam",
+        
+    },
+    {
+        "region_name": "Analanjirofo",
+        "region_code": "analanji",
+       
+    },
+    {
+        "region_name": "Androy",
+        "region_code": "andr",
+        
+    },
+    {
+        "region_name": "Anosy",
+        "region_code": "anos",
+        
+    },
+    {
+        "region_name": "Atsimo Andrefana",
+        "region_code": "atsimoandre",
+        
+    },
+    {
+        "region_name": "Atsimo Atsinanana",
+        "region_code": "atsimoatsi",
+        
+    },
+    {
+        "region_name": "Atsinanana",
+        "region_code": "atsi",
+        
+    },
+
+
+   {
+        "region_name": "Betsiboka",
+        "region_code": "betsi"
+    },
+
+
+
+
+    {
+        "region_name": "Boeny",
+        "region_code": "boe"
+    },
+
+    {
+        "region_name": "Bongolava",
+        "region_code": "bongo"
+    },
+
+    
+
+    {
+        "region_name": "Diana",
+        "region_code": "dia"
+    },
+    {
+        "region_name": "Haute Matsiatra",
+        "region_code": "hautema"
+    },
+    {
+        "region_name": "Ihorombe",
+        "region_code": "ihoro"
+    },
+    {
+        "region_name": "Itasy",
+        "region_code": "ita"
+    },
+    {
+        "region_name": "Melaky",
+        "region_code": "mela"
+    },
+    {
+        "region_name": "Menabe",
+        "region_code": "mena"
+    },
+    {
+        "region_name": "Sava",
+        "region_code": "sav"
+    },
+    {
+        "region_name": "Sofia",
+        "region_code": "sof"
+    },
+    {
+        "region_name": "Vakinankaratra",
+        "region_code": "vakina"
+    },
+    {
+        "region_name": "Vatovavy Fitovinany",
+        "region_code": "vatofito"
+    }
+];

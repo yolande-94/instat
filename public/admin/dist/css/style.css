@@ -1,0 +1,39 @@
+
+#mapsvg:hover {
+   fill: blue;
+ }
+
+
+         #InnerDiv{
+            overflow-y: scroll;
+            height: 690px;
+         }
+         #value_indicator{
+            float: left;
+            width: 400px;
+            margin-left: 0px;
+            border: none;
+         }
+
+          
+         
+         
+        #panel {
+                      margin-left: 20px;
+                      min-height: 620px;
+                      background-color: white;
+                      width: 50%;
+        }
+        #page-wrapper{
+              
+              background-color: white;
+             
+                    }
+        #nav{
+              
+              background-color: #005a57;
+             
+        }
+
+        
+        

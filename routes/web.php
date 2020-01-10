@@ -24,17 +24,27 @@ Route::get('/importfile', function () {
     return view('/admin.import.importfile');
 });
 
-Route::get('/interface', 'ImportCsvController@index');
+Route::get('/importation', 'ImportCsvController@index');
 
-Route::post('/interface', 'ImportCsvController@import')->name('import');
+Route::post('/importation', 'ImportCsvController@import')->name('import');
 Route::get('/findan','ImportCsvController@findan');
 
-Route::resource('enquete','AdminController');
+Route::resource('/enquete','CrudSurveyController');
 
-Route::get('/visualisation','VisualisationController@index');
+Route::get('/instat.mg','VisualisationController@index');
 Route::get('/json-indicators','VisualisationController@indicators');
 Route::get('/findyear','VisualisationController@findyear');
+
+Route::get('/findindics','VisualisationController@findindics');
+Route::get('/typenquete','VisualisationController@typenquete');
 Route::get('/triertable','VisualisationController@triertable');
+Route::get('/chart','VisualisationController@chart');
+
+Route::get('/ensemble','VisualisationController@ensemble');
+Route::get('/urbain','VisualisationController@urbain');
+Route::get('/rural','VisualisationController@rural');
+
+
 
 
 

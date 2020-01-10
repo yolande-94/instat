@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Administrateur</a>
+                <a class="navbar-brand" href="{{ url('/home') }}">Administrateur</a>
             </div>
 
               <ul class="nav navbar-top-links navbar-right">
@@ -20,9 +20,8 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i>Parametres</a>
-                        </li>
-                        <li class="divider"></li>
+                        
+                       
 
                         
                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -59,18 +58,6 @@
                             
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ url('/interface') }}">Importation</a>
-                                </li>
-                                
-                            </ul>
-                            
-                        </li>
-
-                        
-                        <li>
-                            
-                            <ul class="nav nav-second-level">
-                                <li>
                                     <a href="{{route('enquete.index')}}">creation enquete</a>
                                 </li>
                                 
@@ -78,22 +65,24 @@
                             
                         </li>
 
+                        <li>
+                            
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{ url('/importation') }}">Importation</a>
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
 
                         
-                       <!-- <li>
-                         <ul class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Creation</a>
-                            <div class="dropdown-menu">
-                            <li><a href="{{route('enquete.index')}}">Enquete</a></li>
-                            <li><a href="{{route('enquete.index')}}">Anneé</a></li>
-                            <li><a href="{{route('enquete.index')}}">Groupement</a></li>
-                        </div>
-                          
-                      </ul>
-                        </li>-->
-                            
+                        
+
+                        
+                      
                     </ul>
                 </div>
-                <!-- /.sidebar-collapse -->
+                
             </div>
         </nav>

@@ -7,7 +7,7 @@
 				serverSide: true,
 				ajax{
 
-					url:{{"route("") "}},
+					url:{{"route('') "}},
 					data:{indicators:indicators}
 				},
 				colums: [
@@ -15,11 +15,11 @@
                               {
                               	data:'region',
                               	name:'region'
-                              }
+                              },
                               {
                               	data:'valeur',
                               	name:'region'
-                              }
+                              },
 				        ]
 			})
 		}
