@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>visualisation</title>
+	<title>Institut National de la Statistique</title>
    
     
     
@@ -19,7 +19,10 @@
 
     <!-- Custom Fonts -->
     <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+        <!- Bootstrap Core CSS -->
+    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('admin')}}/vendor/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin')}}/vendor/datatables/css/dataTables.bootstrap4.min.css">
     <style type="text/css">
     	#mapsvg:hover {
    fill: blue;
@@ -37,18 +40,32 @@
             border: none;
          }
 
+         .image{
+                        
+			     text-align: left;
+			     right: : 10px;
+			     height:50px;
+			     width: 80px;
+			     top: 0px;
+			    }
+
+		.navbar-brand
+		  {
+		      color: white;
+		      position: absolute;
+		      left: 100px;
+ 
+          }
           
-         
-         
-        #panel {
-                      margin-left: 20px;
-                      min-height: 620px;
-                      background-color: white;
-                      width: 50%;
-        }
+        #panel{
+                   margin-left: 20px;
+                   min-height: 620px;
+                   background-color: white;
+                   width: 50%;
+        	  }
         #page-wrapper{
               
-              background-color: white;
+              background-color: gray;
              
                     }
         #nav{
@@ -61,36 +78,29 @@
 
 </head>
 <body>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+	<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">-->
 	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
-		<div class="navbar-header">
-                                  
-                <a class="navbar-brand" href="">Institut National de la Statistique</a>
+			<div class="navbar-header">
+                                          
+               <img src="{{asset('admin/image/instat.png')}}" class="image">
+               <a class="navbar-brand" style="color: white;">Institut National de la Statistique</a> 
             </div>
+            <ul class="nav navbar-top-links">
+            <li><a href="{{ route('visualize') }}">Visualisation</a></li>
+            </ul>
             <ul class="nav navbar-top-links navbar-right">
                 
                 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>{{ Auth::user()->name }} 
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
-                        </li>
-                        
-                       
-
-                        
-                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> Deconnexion
+                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" style="color: white;"><i class="fa fa-sign-out fa-fw" style="white"></i> Deconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                             </form>
                         </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
+                   
                 </li>
                 <!-- /.dropdown -->
             </ul>
@@ -98,17 +108,19 @@
 
              
     </nav>
+    <br>
 
 	<!-- Debut crud Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">creation de nouveau enquete</h5>
+
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
-		      </div>
+		      </div><br>
 		      <form action="{{action('CrudSurveyController@store')}}" method="POST">
 
 					{{csrf_field()}}
@@ -128,7 +140,7 @@
 
 				  <div class="form-group">
 				    <label >Année Enquete:</label>
-				    <input type="$dt" name="year" class="form-control">
+				    <input type="date" name="year" class="form-control">
 				  </div>  
 
 				  
@@ -207,7 +219,7 @@
 		<div class="modal-body">
 		        
 		  <input type="hidden" name="methode" value="DELETE">
-		  <p>voulez vous supprimer ce donnée?</p>
+		  <p>voulez-vous le supprimer vraiment?</p>
 		  
 		  </div>
 		      <div class="modal-footer">
@@ -245,12 +257,12 @@
 			
 	        <a href="{{ url('/importation') }}"class="btn btn-secondary"> Importation </a>
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-			  Nouveau
+			  Ajouter
 		    </button>
 		  
 		   
 	<br><br>
-			<table id="datatable" class="table table-bordered table-striped ">
+			<table id="datatable" class="table table-bordered table-striped table-dark ">
 	  <thead>
 	    <tr>
 	      <th scope="col">ID Enquete</th>
@@ -280,12 +292,17 @@
 
 
 <!-- code java script -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>-->
 
+<script src="{{ asset('admin')}}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('admin')}}/vendor/bootstrap/js/bootstrap4.min.js"></script>
+    <script src="{{ asset('admin')}}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    
+<script src="{{ asset('admin')}}/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){

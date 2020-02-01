@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input; 
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\Survey;
 use App\ResultGlobal;
@@ -15,7 +15,7 @@ use DataTables;
 class VisualisationController extends Controller
 {
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -26,21 +26,26 @@ class VisualisationController extends Controller
         $surveys = Survey::all();
 
         //$ensemble=ResultGlobal::all();
-        
+
             $survey = DB::table('surveys')->first();
-            $indicatorsk = DB::table('indicators')->first();
 
             if($survey) {
                 $year=Survey::select('year')->where('id',$survey->id)->first();
                 $typsurvey=Survey::select('name')->where('id',$survey->id)->first();
                 $indicator = Indicator::where('id_survey','=',$survey->id)->first();
-                    
-                return view('admin.affichage.visualisation',compact('surveys','resultregions','survey', 'indicator', 'year','typsurvey'));
+                if(isset($indicator->id)) {
+                    $ensembles = ResultGlobal::where('id_indicator','=',$indicator->id)->first();
+                }
+                else $ensembles = null;
+
+                $indicators = Indicator::where('id_survey','=',$survey->id)->get();
+
+                return view('admin.affichage.visualisation',compact('surveys','resultregions','survey', 'indicator', 'indicators', 'year','typsurvey','ensembles'));
               }
-        
+
 
         else return view('admin.affichage.erreur');
-        
+
     }
 
     /**
@@ -80,7 +85,7 @@ class VisualisationController extends Controller
 
 
 
-     
+
 
      public function triertable(Request $request)
     {
@@ -89,12 +94,12 @@ class VisualisationController extends Controller
         if($request->id_indicators)
         {
            $data = DB::table('result_regions')
-                    ->join('indicators','indicators.id','=','result_regions.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_regions.id_indicator')
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name')
                     ->orderBy('regions.name', 'ASC')
                     ->where('result_regions.id_indicator',$request->id_indicators);
-                            
+
         }
 
         else
@@ -105,32 +110,32 @@ class VisualisationController extends Controller
                     $indicators = Indicator::where('id_survey','=',$surveys->id)->first();
                 //print_r($indicators);
                /*$data = DB::table('result_regions')
-                    ->join('indicators','indicators.id','=','result_regions.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_regions.id_indicator')
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name');*/
                     $data = DB::table('result_regions')
-                    ->join('indicators','indicators.id','=','result_regions.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_regions.id_indicator')
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name')
                     ->orderBy('regions.name', 'ASC')
-                    
+
                     ->where('result_regions.id_indicator',$indicators->id);
                 }
                 else $data = array();
-                
+
 
         }
             return datatables()->of($data)->make(true);
       }
     }
 
-    
+
 
 /*$id_indicators = Input::get('id_indicator');
        $result_regions = DB::table('result_regions')
                            ->join('regions','regions.id','=','result_regions.id_region')
                           ->join('indicators','indicators.id','=','result_regions.id_indicator')
-                            
+
                           ->select('regions.name','result_regions.value')
                           ->where('id_indicator','=',$id_indicators)
                           ->get();
@@ -152,46 +157,46 @@ class VisualisationController extends Controller
         $indicators = Indicator::where('id_survey','=',$surveys->id)->first();
 
         $result = \DB::table('result_regions')
-                    ->join('indicators','indicators.id','=','result_regions.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_regions.id_indicator')
                     ->join('regions','regions.id','=','result_regions.id_region')
                     ->select('result_regions.value','regions.name')
                     ->where('result_regions.id_indicator',$indicators->id)
                     ->get();
-                    
+
         return response()->json($result);
       }
 
 
 
 
-      public function ensemble(Request $request)   
-                    
+      public function ensemble(Request $request)
+
     {
       $p=DB::table('result_globals')
-                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator')
                     ->select('result_globals.ensemble')
                     ->where('result_globals.id',$request->id)->first();
         return response()->json($p);
     }
 
 
-   
-   public function urbain(Request $request)   
-                    
+
+   public function urbain(Request $request)
+
     {
       $p=DB::table('result_globals')
-                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator')
                     ->select('result_globals.urbain')
                     ->where('result_globals.id',$request->id)->first();
         return response()->json($p);
     }
 
 
-public function rural(Request $request)   
-                    
+public function rural(Request $request)
+
     {
       $p=DB::table('result_globals')
-                    ->join('indicators','indicators.id','=','result_globals.id_indicator') 
+                    ->join('indicators','indicators.id','=','result_globals.id_indicator')
                     ->select('result_globals.rural')
                     ->where('result_globals.id',$request->id)->first();
         return response()->json($p);
@@ -199,7 +204,15 @@ public function rural(Request $request)
 
 
 
+  public function indireg(Request $request)
+
+    {
+
+      $p=Indicator::select('title')->where('id',$request->id)->first();
+      return response()->json($p);
+
+    }
 
 
-    
+
 }

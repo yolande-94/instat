@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>instat</title>
+    <title>Institut National de la Statistique</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('admin') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 align="center" class="panel-title">Administrateur</h3>
+                        <h3 align="center" class="panel-title"><strong>Authentification</strong></h3>
                     </div>
                     <div class="panel-body">
                         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
@@ -52,11 +52,11 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
+                                <!--<div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
-                                </div>
+                                </div>-->
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button type="submit" class="btn btn-lg btn-success btn-block">
                                     {{ __('connecter') }}

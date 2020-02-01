@@ -47,9 +47,26 @@ a {
 }
 #page-wrapper {
   padding: 0 15px;
-  min-height: 620px;
+  min-height: 650px;
   background-color: white;
 }
+
+.image{
+                        
+     text-align: left;
+     right: : 10px;
+     height:50px;
+     width: 80px;
+     top: 0px;
+    }
+
+.navbar-brand
+  {
+      color: white;
+      position: absolute;
+      left: 80px;
+
+  }
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Survey;
+use DataTatables;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home.homeContent');
+        $survs = Survey::orderBy('name')->get();
+        return view('crud.crudsurvey',compact('survs'))->with('i');
     }
 }

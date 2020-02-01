@@ -9,34 +9,35 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>visualisation</title>
-    
-   
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    <title>Institut National de la Statistique</title>
 
-    
-    
-    
-    
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('admin')}}/vendor/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin')}}/vendor/datatables/css/dataTables.bootstrap.min.css">
+
+
+
+
+
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
 
     <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css">-->
-    <!--<link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">--s>
-    
-    <!- Bootstrap Core CSS -->
-    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">-->
+
+
 
     <!-- MetisMenu CSS -->
     <link href="{{ asset('admin')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    
+
 
     <!-- Morris Charts CSS -->
     <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet">
@@ -60,15 +61,15 @@
                 width: 10%;
               }
 
-          .info_panel::first-line 
+          .info_panel::first-line
                 {
-                
-                font-weight: bold;   
-                
-                } 
+
+                font-weight: bold;
+
+                }
 
           .image{
-                        
+
                 text-align: left;
                 right: : 10px;
                 height:60px;
@@ -87,19 +88,54 @@
               .container1{
                     position: absolute;
                     left: 5px;
-                    top: 840px;
+                    top: 850px;
 
                   }
+
+                  #indireg{
+
+                    position: absolute;
+                    background-color: gray;
+                    top:110px;
+                    left: 25px;
+
+                  }
+
+                  #tabregval{
+                    word-wrap: break-word;
+                    position: absolute;
+                    left: 30px;
+                    top:70px;}
+
+                    /*input.break {
+                      word-wrap: break-word;
+                      word-break: break-all;
+                      height: 80px;
+                  }*/
+
+
+                      #indicators{
+                          height:100%;
+                          width:10%;
+                          overflow-y: hidden;
+                          overflow-x: auto;
+                          display:inline-block;
+                          white-space:nowrap;
+
+
+                      }
+
+
     </style>
     </head>
 
     <body>
-    
+
     <div id="soft-all-wrapper">
-        
-          <!-- Navigation --> 
+
+          <!-- Navigation -->
           <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
-              
+
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                       <span class="sr-only">Toggle navigation</span>
@@ -107,11 +143,10 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-               
-               
-                         
+
+
                <img src="{{asset('admin/image/instat.png')}}" class="image">
-               <a class="navbar-brand" href="">Institut National de la STatistique</a> 
+               <a class="navbar-brand" style="color: white;" >Institut National de la Statistique</a>
               </div>
 
               <ul class="nav navbar-top-links navbar-right">
@@ -122,12 +157,13 @@
 
         <div id="page-wrapper">
 
-            <center>
+            <!--<center>-->
+
                 <span><strong>Alias Enquete:</strong></span>
                 <select style="width: 200px;" class="surveyname" name="survey"  id="survey">
                     <option value="0" disabled="true"> selectionner un enquete</option>
-                           @foreach( $surveys as $key => $value) 
-                           @if($value->id == $survey->id)          
+                           @foreach( $surveys as $key => $value)
+                           @if($value->id == $survey->id)
                       <option value="{{$value->id}}" selected>{{$value->alias_survey}}</option>
                           @else
                           <option value="{{$value->id}}">{{$value->alias_survey}}</option>
@@ -139,55 +175,79 @@
                 <input type="typsurvey" name="typsurvey" class="typsurvey" id="typsurvey" value="{{$typsurvey->name}}">
 
                 <span><strong>Anneé:</strong></span>
-                    <input type="text" name="year" class="year" id="year" value="{{$year->year}}"> 
-              
+                    <input type="text" name="year" class="year" id="year" value="{{$year->year}}">
+
 
                 <span><strong>Indicateurs:</strong></span>
-                    <select style="width: 200px;" id="indicators" name="indicators">
+                    <select style="width: 200px;" id="indicators" name="indicators" >
 
                         <option value="0" disabled="true">selectionner un indicateurs</option>
-                        <option value="{{$indicator->id}}" selected>{{$indicator->title}}</option>
+                        @if(isset($indicator->id))
+                        @foreach ($indicators as $ind)
+                            @if($indicator->id == $ind->id)
+                                <option value="{{$indicator->id}}" selected>{{$indicator->title}}</option>
+                            @else
+                                <option value="{{$ind->id}}">{{$ind->title}}</option>
+                            @endif
+                        @endforeach
+
+                        @endif
 
                     </select>
 
-                 <span><strong>cliquer ici:</strong></span>
-
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-                graphique
+                    <span><strong>Afficher:</strong></span>
+                 <select style="width: 100px;" id="chartSelect" name="chartSelect">
+                    <option value="bar" selected>Barre</option>
+                    <option value="line">Ligne</option>
+                    <option value="lineArea">Ligne (région)</option>
+                    <option value="radar">Radar</option>
+                    <option value="polarArea">Polaire</option>
+                    <option value="pie">Camember</option>
+                    <option value="doughnut">Doughnut</option>
+                </select>
+                <button type="button" id="affich" class="btn btn-secondary">
+                Graphique
                 </button>
-                 
+
+                <br />
+                 @if(isset($indicator->id))
+                <input type="text-align" name="ensemble" class="form-control" id="indireg" value="{{(isset($indicator->title))?$indicator->title:''}}" style="width: 650px; text-align: center; height: 50px;background-color: rgb(192,192,192,0.2);">
+                @endif
+
+
+
             <div class="container1">
-              
-              
-                    
+
+
+
                   <span><strong>Madagascar:</strong></span>
-                  <input type="ensemble" name="ensemble" class="ensemble" id="ensemble" value="">
+                  <input type="ensemble" name="ensemble" class="ensemble" id="ensemble" value="{{(isset($ensembles->ensemble))?$ensembles->ensemble:''}}">
 
                   <span><strong>Milieu Urbain:</strong></span>
-                  <input type="text" name="urbain" class="urbain" id="urbain" value="">
-                                
+                  <input type="text" name="urbain" class="urbain" id="urbain" value="{{(isset($ensembles->urbain))?$ensembles->urbain:''}}">
+
 
                   <span><strong>Milieu Rural:</strong></span>
-                  <input type="text" name="rural" class="rural" id="rural" value=""> 
-                          
-                 <br> <br>           
-           
-               
+                  <input type="text" name="rural" class="rural" id="rural" value="{{(isset($ensembles->rural))?$ensembles->rural:''}}">
+
+                 <br> <br>
+
+
        </div>
-       
-                
 
 
-          </center>
 
-           
+
+          <!--</center>-->
+
+
     <div class="col-lg-6">
 
  <!-- Debut div chart -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
           {{csrf_field()}}
-                
+
         <div class="modal-body">
            <div class="row">
               <div class="col-md-10 col-md-offset-1">
@@ -202,58 +262,55 @@
 
                      </div>
 
-                   </div>        
+                   </div>
               </div>
             </div>
-       </div>  
+       </div>
     </div>
   <!-- Fin div chart -->
-                    
-                    
-                   
-                   
-                        
+
+
+
+
+
       <!-- /.panel-heading -->
-     <div class="panel-body" >
-                         
-           <div class="login-panel panel panel-default">
-                    <div class="panel-heading" >
-                        <h2 align="center" class="panel-title" > Resultat enquete par region </h2> <br>
-                    </div>
-           </div>
-                              
+     <div class="panel-body" id="tabregval" >
+
+
+
             <div class="row">
-                                
-                  <div class="table-responsive">
-                        <table class="table table-bordered  table-striped" id="value_indicator">
-                              <thead> 
+
+                  <div class="table-responsive" style="width: 650px">
+                    @if(isset($ensembles->ensemble))
+                        <table class="table table-bordered  table-striped table-dark" id="value_indicator">
+                              <thead>
                                   <tr>
-                                      <th width="10px">Nom Region</th>
-                                      <th width="10px">Valeur</th>
+                                      <th width="200px">Nom Region</th>
+                                      <th width="200px">Valeur</th>
                                   </tr>
                               </thead>
                         </table>
-                                        
+                        @endif
                  </div>
-                                              
+
               </div>
       </div>
-                            
+
   </div>
 <div>
-                      
+
 </div>
-            
-<div class="map" id="map"> 
-                
+
+<div class="map" id="map">
+
 <svg baseprofile="tiny" fill="#ccc" height="700" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width=1  version="1.2" viewbox="0 0 1000 1985" width="650" xmlns="http://www.w3.org/2000/svg">
         <style type="text/css">
-            
+
                 path:hover {
                     fill:  #fc0 !important;
-                    cursor: help; 
+                    cursor: help;
                   }
-                  
+
                   #legende{
                     font-size: 50px;
                     position: absolute;
@@ -268,10 +325,10 @@
                   .colour3 {fill: #992038;}
                   .colour4 {fill: #60000e;}
 
-                  
-            
+
+
         </style>
-      
+
      <path d="M781.5 671.2l-3.4 15.6 0 12.6-8.6 21.5 3.4 23.4-6.8 16.2 8.9 10.4-7.2 18.4-12 9 3.4 7.2 13.7 7.2 3.5 12.6-5.2 14.4-17.1 0-8.6 3.7 8.6 10.8 12 14.4 1.7 14.5-17.2 10.8-17.2 3.6-5.1 19.9 0 29 6.9 21.8 12 32.6 0 27.3-12 3.6-1.8 21.9-24 7.3 5.2 27.3-12.1 0-5.1 32.8-22.3-1.8-10.3-9.1-10.3 7.3-19.3 3.8 1.3-3.5 0.4-3.6 0-0.9-0.6-2.6-0.3-1.6-0.2-8.9 0.1-1.7 0.5-1 1.6-2.2 0.5-1.3 0.2-1.1 0-1-0.4-2.8 0-3.4 0.6-2.2 1.9-3.2 0.9-2.1 0.4-1.6 0.2-1.8 0.2-0.9 0.4-0.8 1.8-2.1 2.4-3.7 0.9-2.2 0.4-2.2 0.9-9.5 0.1-1.9-0.4-2.8 0-5.1-0.8-2.2-0.3-2.6 0.2-4.2 0-1.2-0.3-0.7-4.4-8.8-0.3-1.2-0.3-1.9 0.3-2.2 2.3-4.6 0.6-1.9 0.2-1.5 0.1-1.8 0.4-1.8 0.7-1.1 1.2-2.4 0.2-1.5 0.4-6.9-0.1-3.3 0.4-4.9-0.1-0.9-1-4-0.5-3.5-0.3-11.1 1.7-9.7 4.6-13.1 0.6-2.6 0.1-1.8-0.2-1.9 1.2-12.1-0.2-5.1 0.4-2.1 1-1.6 2.2-1.9 1.3-2 0.1-2-0.5-1.4-1.1-1.9-0.3-1-0.1-1.4 0-4-0.2-1.1-2.1-3.7-0.4-0.9-0.2-1.3 0.3-8.9-0.6-3.3-0.1-2.8 0.5-3 0.5-1.3-0.1-1.6-0.8-1.4-0.5-1.4-0.7-3.2-0.5-1.6-1-1.9-0.2-0.8-0.5-6.3-0.6-1.4-1.1-0.9-2.1-0.9-1.8-1.2-1.9-1.2-0.6-0.4-0.7-1.5-0.5-3.1 4.5-6.3 3.6-6.8 0.4-1.6-0.4-1.7-0.1-1.1 0.1-1.7 0.7-1.6 1.6-1.5 0.9-1.3 0.4-1 0.1-0.9-0.1-2.3 0.3-1.9 0.3-1.1 0.5-0.7 0.8-0.5 1.3-0.4 2.5 0 1-0.3 1.6-1.5 0.7-1 0.4-1.1 0.6-4.4 0.3-5.2 0.5-2.2 0.6-0.7 1.5-0.5 0.7-1.5 0-3.3 0.3-1.9 0.5-0.9 0.6-0.7 1.5-1 0.8-0.9 0.2-0.8-0.1-1.8 0.3-1.4 0.1-1-0.1-0.8-0.6-0.3-2.6-0.3-0.6-0.5-0.5-0.8-0.2-1.4 0.1-0.9 0.4-0.7 1.8-1.5 0.8-0.9 0.4-1.2 1.4-6 0.8-2 1.3-1.3 1-1.2 1.7-2.7 0.7-1.4 0.4-1.2-0.7-2.5-0.1-1.5 0.2-0.8 0.5-0.7 1-0.9 0.9-1.1 2.9-5.5 0.7-1.9 0.2-1.4-0.9-2.4-0.2-1.1-0.2-1.9-0.9-3-0.1-1.3 0.2-2.4-0.2-1.2-0.5-0.8-0.7-0.3-1.7-0.3-1.8 0.1-1.7-0.3-0.7-0.3-2.4-1.6-1.9-2-3.1-4.4-0.1-0.7-0.1-3.6-0.4-1.3-1.2-1.6 0-0.7 1.5-4.7 0-1.2-0.2-0.9-0.6-0.4-2-1-1.2-0.8-1-2-0.9-1.1-1.1-0.8-1.1-1.4-0.4-2.5-0.2-0.9-0.9-1.1-1-0.8-1.1-1.1-0.7-2.1-0.4-0.7-1.8-2.2-2-1.9-0.8-1.2-0.6-1.7-0.4-1.5 0.1-1 0.4-1 0.6-1.3 0.1-1-0.1-5.2-0.6-3.5-0.4-1.6-0.6-1.4-2-3.8-0.2-0.8-1.2-6.5 0-2.8 0.4-3.4 0.2-0.9 0.9-2.2 0.3-0.9 1.1-8.6 0-1.3-0.2-1.8-1-4.9 0.2-2.3 0.9-2 0.8-1.2 1-1 1.7-1.2 1.1-1.1 0.4-1 0.1-1 0-1.7 0.3-0.8 0.6-0.3 1.8 0.9 1.1 0.1 1.7-1 0.8-0.1 1.5 0.1 1.3 0.6 1.6 0.4 3.3 0 1.9 1 1.5 0.5 3.4 0.2 1.6-0.3 2.1-0.8 2.4-0.5 0.8-0.3 1.9-1 0.7-0.3 6.6-1.2 2.4 0.4 1.7 0 1.5-0.3 0.7 0.1 1.3 0.7 1.5 1.4 2.1 2.8 0.6 0.4 1.8 1.2 1 1 1.3 0.6 2.5 0.5 1.2 0.8 0.2 0.8 0.2 2.7 0.7 1.2 0.6 0 1.3-0.4 2.6 0 3.2-0.6 1.4 0.3 1.1 0.8 1.5 1.4 3.8 5.1 2.4 1.5 1.4 0.7 3 0.9 2.7 1.4 2.3 1.6 0.9 1 0.4 0.6 0.4 1.6 0.4 0.6 1.8 1.2 0.7 1 0.3 2.1 1.4 2.6 0.2 0.8 0.3 3.5-0.2 1.5 0.4 1.5 0.8 1.2 1.5 1.4 0.5 1.4-0.2 1.6-0.6 1.5-2.2 3.7-0.6 1.4-0.4 1.6-0.1 2.7 0.3 1.7 0.5 1.5 1.2 2.6 4.4 6.6 1.2 0.9 0.7 0.2 1.6-0.2 1.8-1.1 1.1-0.9 2.6-2.4 11.6-8.1 1.5-0.6 2.4 0 2.4-0.4 0.8 0.1 2.8 1.1 1.7 0.3z" id="alaomang" name="Alaotra-Mangoro">
      </path>
      <path d="M617.1 1161.9l-0.1 7.4-0.4 2.7-0.6 1.4-1.4 4.1-2.3 9.4-0.5 3.8 0.6 12 0.3 1.3 1.3 1.7 0.8 2.2 1 1 2.2 0.8 1.3 0.8 1.4 1.6 1.8 1.2 0.5 0.5 1.3 1.9 1.5 1.1-12.6 12.2-10.3 3.6-1.7 20.2-1.7 9.2-10.3 1.8-6.9 7.4-1.7 23.9-17.1-1.9-5.2-9.2-10.3-3.6-22.3 9.2-10.3 14.7-17.2 0-18.9-12.9-13.7-20.2-3.5-11-12 3.6-10.3-3.6-12 5.5-12 11-10.3 11-18.9 5.5-17.2 9.2-18.2 0.1 0.7-2.3 1-13.3 0.4-1.7 0-1.3-0.2-1.8-1-3.5-0.3-1.9-0.1-1.3 0.1-1.8 0.1-2.6 0.9-4.3 0.2-0.7 0.8-1.3 0.5-1.6 0.3-2.8 0.4-1.6 0.5-0.6 0.7-0.3 2.7-0.3 0.8-0.3 0.9-1 0.2-1.8-0.5-6.9-3.6-15.6 0-1.3 0.8-2.3 0.3-1.7 0.2-2.7 0.4-1.1 1.3-2.3 0.4-1.6 0-2.8-1.1-5.8 0-1.7 0.5-1.6 0.7-2.3 0-1.2-0.1-1.4-2.4-10-0.2-1.2 0-2.8-1.8-7.6-1.2-2.7-0.5-1.6-0.3-1.1 0-2.2-0.1-1.5-0.4-1.1-0.8-1.6-0.2-1 0.3-2.6-0.1-2.7 0.3-1.8 0.9-1.1 1.7-1.3 0.4-0.7 0.1-0.8-0.3-2.1 0.2-0.9 0.5-1.6 0.2-1.1-0.1-0.8-1-1-2-1.1-1.8-1.5-0.7-0.9-0.8-1.4-0.2-1.1 0.1-0.9 1-2 0.5-1.5 0.4-3.7 0.2-1.3 3.1 3.2 3.5 2 2.1 0.1 1.2-0.2 0.8-0.4 1.4-1 1-0.1 0.9 0.4 3.2 0.6 6.7 3.1 8.9 0.5 0.9 0.6 1.8 1.7 1 0.7 1 0 2.5-0.5 1.2 0.5 1.5 2.1 0.7 5.1 1.1 2.3 2.3 1.4 2.3 0.3 1.8 0.8 0.7 3 0.4 3.2 1-0.2 3.3-4 3.3-2.4 1.3-1.3 1.1-2.4 1.7 1.6 4.1 2.1 1.5 1.3 1 2.1 0.2 2.3-0.8 2-2.1 0.7 1.1 1.8 1.3 3.5 1.3 1.7-3.3 1.9-0.5 2.3 1.4 2.5 2.4 2.3 5.5 3.8 3.2 1.6 2.6 0.6 1.8-0.4 3.3-2 1.6-0.6 1.7 0.1 1.2 0.5 1.2 0.7 2.8 1.1 2.6 0.5 1.7 0.1 1.2 0.4 1.5 2.1 1 1 3.2 0.1 2.6-2.2 2.3-2.5 2.2-0.5 9.2 4.7 3 0.9 3.3-0.3 2.3-1.4 1.9-0.6 2.4 1.8 2.6 1.3 2.7-1 2.3-1.5 1.3-0.3 3.4-0.2 0.8-0.4 1.1-0.9 0.9-1.2 3.1-2.9 4.2-4.8 1.3-1.8 0.4-0.6 1.8-1.3 0.9-0.4 1.3-0.2 1.5 0.5 1.5 1 2.6 1.2 1.1 0.2 1-0.2 4.1-1.8 6.3-0.3 1.1-0.2 2.7-1.3 2.3-0.5 2.5 0 1.2-0.2 0.8-0.6 0.1-0.8 0.7-4.3 0.1-2.7 0.2-0.8 0.8-1.3 1.5-1.5 1.8-1.2 1.3-1 0.9-0.3 0.8 0.1 0.6 0.4 1.4 2.2 1 0.8 1 0.3 0.7-0.3 0.5-0.5 2-2.6 0.9-0.6 2.6-0.8 1.6-0.3 1 0 1.5 0.6 1.7 1.4 0.7 0.3 8.5 2.3 1.4 0.1 1-0.2 0.9-1.1 0.7-1.5 0.7-0.6 1.3-0.5 0.9 0 0.8 0.3 1 1 0.7 1.5 0.6 0.8 0.8 0.2 0.7-0.1 6.9-4.1 1.4-0.6 4.3-0.7 1.3-0.7 1.9-2.1 0.6-0.6 0.9-0.4 1.4-0.3 0.8 0.2 0.5 0.5 0.2 0.7-0.1 0.7-1.4 1.6-0.4 1.3 0.6 1.2 1.6 0.7 3.2 0.6 1.4 0.7 0.8 0.9 0.4 0.9z" id="amorman" name="Amoron'IMania">
@@ -332,43 +389,39 @@
              <rect x="800" y="1570" width="60" height="50" class="key colour1" />
              <rect x="800" y="1640" width="60" height="50" class="key colour2" />
              <rect x="800" y="1710" width="60" height="50" class="key colour3" />
-             <rect x="800" y="1780" width="60" height="50" class="key colour4" />
-             <rect x="800" y="1850" width="60" height="50" class="key colour5" />
 
              <text x="900" y="1540">0</text>
-             <text x="900" y="1610">0</text>
-             <text x="900" y="1680">0</text>
-             <text x="900" y="1750">0</text>
-             <text x="900" y="1820">0</text>
-             <text x="900" y="1890">0</text>
- 
+             <text x="900" y="1610">1 à 20</text>
+             <text x="900" y="1680">20 à 40</text>
+             <text x="900" y="1750">50 +</text>
+
         </g>
 
-        
+
 
   </svg>
 </div>
 </div>
 
-      
 
 
-       
 
-    
+
+
+
     @include('admin.include.stylfoot')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
- 
-<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+<script src="{{ asset('admin')}}/vendor/chartjs/dist/Chart.min.js" charset="utf-8"></script>
+<script src="{{ asset('admin')}}/vendor/chartjs/dist/Chart.bundle.min.js" charset="utf-8"></script>
+
+    <script src="{{ asset('admin')}}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+
+<script src="{{ asset('admin')}}/vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+
+<!--<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>-->
 <script type="text/javascript">
 
-  
+
     $(document).ready(function() {
           //script selectionner survey et afficher les indicateurs
           $('#survey').on('change',function(e) {
@@ -377,7 +430,7 @@
             var id_survey = e.target.value;
 
             $.get('/json-indicators?id_survey=' + id_survey,function(data){
-                      console.log(data); 
+                      console.log(data);
 
             $('#indicators').empty();
             $('#indicators').append('<option value="0" disabled="true" selected="true">selectionner un indicateurs</option>');
@@ -405,7 +458,7 @@
                 dataType:'json',
                 success:function(data){
                   //console.log("name");
-                  console.log(data.name);
+                  //console.log(data.name);
                   o.find('.typsurvey').val(data.name);
                   //console.log(data.length);
                 },
@@ -413,7 +466,7 @@
             })
 
           });
-       
+
 
        //script selectionner survey et afficher année
 
@@ -430,8 +483,8 @@
                 data:{'id':id_enquete},
                 dataType:'json',
                 success:function(data){
-                  //console.log("year");
-                  //console.log(data.year);
+                  console.log("year");
+                  console.log(data.year);
                   a.find('.year').val(data.year);
                   //console.log(data.length);
                 },
@@ -458,7 +511,7 @@
                 dataType:'json',
                 success:function(data){
                   console.log("ensemble");
-                  console.log(data.ensemble);
+                  //console.log(data.ensemble);
 
                   e.find('#ensemble').val(data.ensemble);
                   //e.find('.typsurvey').val(data.name);
@@ -484,8 +537,8 @@
                 data:{'id': id_enurbain},
                 dataType:'json',
                 success:function(data){
-                  console.log("urbain");
-                  console.log(data.urbain);
+                  //console.log("urbain");
+                  //console.log(data.urbain);
 
                   y .find('#urbain').val(data.urbain);
                   //e.find('.typsurvey').val(data.name);
@@ -513,7 +566,7 @@
                 dataType:'json',
                 success:function(data){
                   console.log("rural");
-                  console.log(data.rural);
+                  //console.log(data.rural);
 
                   z.find('#rural').val(data.rural);
                   //e.find('.typsurvey').val(data.name);
@@ -525,27 +578,230 @@
           });
 
 
+           $(document).on('change','#indicators',function(){
 
-      
+            //console.log("its change");
+            var id_indireg = $(this).val();
+            var r = $(this).parent();
+            //console.log(id_enquete);
+            var op="";
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('indireg')!!}',
+                data:{'id': id_indireg},
+                dataType:'json',
+                success:function(data){
+                  //console.log("title");
+                  console.log("title");
+                  console.log(data.title);
+
+                  r.find('#indireg').val(data.title);
+                  //e.find('.typsurvey').val(data.name);
+                  //console.log(data.length);
+                },
+                 error:function(){}
+            })
+
+          });
+
+
+
+
 
       //$("#year").val(new Date().getFullYear());
       //console.log(new Date().getFullYear());
 
-      
-          fecth_data(); 
-          
+          @if(isset($ensembles->ensemble))
+          fecth_data();
+          @endif
+
           $('#indicators').change(function(){
 
             var id = $('#indicators').val();
             $('#value_indicator').DataTable().destroy();
-            
+
             console.log(id);
             fecth_data(id);
 
-          })
           });
-     
-        
+
+          $('#affich').click(function() {
+            var array = $('#value_indicator').DataTable().rows().data().toArray();
+            var region_data=$(this).data('region');
+              Names = new Array();
+              Values = new Array();
+              array.forEach(function(item, index) {
+                var name = item.name.replace('&#039;','\'');
+                //console.log(name);
+
+                for (i = 0; i < regions.length; i++) {
+                  if(name == regions[i].region_name.toUpperCase()) {
+                    regions[i].population = item.value;
+                    Names.push(regions[i].region_name);
+                    Values.push(item.value);
+                  }
+                }
+              });
+
+              switch($('#chartSelect').val()) {
+                  case 'bar':
+                  showCanvas('bar', true, Values, Names);
+                  break;
+                  case 'line':
+                  showCanvas('line', false, Values, Names);
+                  break;
+                  case 'lineArea':
+                  showCanvas('line', true, Values, Names);
+                  break;
+                  case 'radar':
+                  showCanvas('radar', false, Values, Names);
+                  break;
+                  case 'polarArea':
+                  showCanvasColor('polarArea', Values, Names);
+                  break;
+                  case 'pie':
+                  showCanvasColor('pie', Values, Names);
+                  break;
+                  case 'doughnut':
+                  showCanvasColor('doughnut', Values, Names);
+                  break;
+              }
+
+            $('#exampleModal').modal();
+          });
+          });
+
+        function showCanvas(type, fill, Values, Names) {
+            $('#canvas').empty();
+              $('#canvas').remove();
+              $('#chart').html('<canvas id="canvas" height="250" width="600"></canvas>');
+              var ctx = document.getElementById("canvas").getContext('2d');
+               var chart = new Chart(ctx, {
+                  type: type,
+                  data: {
+                      labels:Names,
+                      datasets: [{
+                          label: 'Valeur',
+                          data:Values,
+                          backgroundColor:'rgb(0,128,128, 0.6)',
+                          borderColor:'rgb(0,0,0, 0.8)',
+                          borderWidth: 1,
+                          fill: fill,
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }],
+                          xAxes: [{
+                              ticks: {
+                              autoSkip: false
+                              }
+                              }]
+                      },
+                      responsive: true,
+                      //maintainAspectRatio: false,
+                      animation: {
+                          animateRotate: true,
+                          animateeScale: true
+                      }
+                  }
+              });
+        }
+
+        function showCanvasColor(type, Values, Names) {
+            $('#canvas').empty();
+              $('#canvas').remove();
+              $('#chart').html('<canvas id="canvas" height="250" width="600"></canvas>');
+              var ctx = document.getElementById("canvas").getContext('2d');
+               var chart = new Chart(ctx, {
+                  type: type,
+                  data: {
+                      labels:Names,
+                      datasets: [{
+                          label: 'Valeur',
+                          data:Values,
+                          //backgroundColor:'rgb(0,128,128, 0.6)',
+                          //borderColor:'rgb(0,0,0, 0.8)',
+                          borderWidth: 1,
+                          backgroundColor: [ // Specify custom colors
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 0, 0, 0.6)',
+                            'rgba(0, 0, 255, 0.6)',
+                            'rgba(0, 255, 0, 0.6)',
+                            'rgba(75, 92, 192, 0.6)',
+                            'rgba(153, 51, 255, 0.6)',
+                            'rgba(32, 128, 0, 0.6)',
+                            'rgba(128, 0, 0, 0.6)',
+                            'rgba(230, 230, 0, 0.6)',
+                            'rgba(46, 184, 184, 0.6)',
+                            'rgba(153, 153, 102, 0.6)',
+                            'rgba(102, 0, 102, 0.6)',
+                            'rgba(51, 51, 153, 0.6)',
+                            'rgba(204, 51, 0, 0.6)',
+                            'rgba(0, 51, 0, 0.6)',
+                            'rgba(102, 153, 153, 0.6)',
+                            'rgba(230, 0, 115, 0.6)',
+                            ],
+                            borderColor: [ // Add custom color borders
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 0, 0, 1)',
+                            'rgba(0, 0, 255, 1)',
+                            'rgba(0, 255, 0, 1)',
+                            'rgba(75, 92, 192, 1)',
+                            'rgba(153, 51, 255, 1)',
+                            'rgba(32, 128, 0, 1)',
+                            'rgba(128, 0, 0, 1)',
+                            'rgba(230, 230, 0, 1)',
+                            'rgba(46, 184, 184, 1)',
+                            'rgba(153, 153, 102, 1)',
+                            'rgba(102, 0, 102, 1)',
+                            'rgba(51, 51, 153, 1)',
+                            'rgba(204, 51, 0, 1)',
+                            'rgba(0, 51, 0, 1)',
+                            'rgba(102, 153, 153, 1)',
+                            'rgba(230, 0, 115, 1)',
+                            ],
+
+
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }],
+                          xAxes: [{
+                              ticks: {
+                              autoSkip: false
+                              }
+                              }]
+                      },
+                      responsive: true,
+                      //maintainAspectRatio: false,
+                      animation: {
+                          animateRotate: true,
+                          animateeScale: true
+                      }
+                  }
+              });
+        }
+
         function fecth_data(id_indicators ='')
         {
               $('#value_indicator').DataTable({
@@ -554,9 +810,9 @@
                //"paging":   false,
                 "ordering": false,
                 //"info":     false,
-                //"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                "lengthMenu": [10],
-               'language': 
+                "lengthMenu": [10, 12],
+                //"lengthMenu": [10,15;22],
+               'language':
                 {
                   "sEmptyTable":     "Aucune donnée disponible dans le tableau",
                   "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
@@ -564,7 +820,7 @@
                   "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
                   "sInfoPostFix":    "",
                   "sInfoThousands":  ",",
-                  "sLengthMenu":     "Afficher _MENU_ éléments",
+                  "sLengthMenu":     "_MENU_ resultats",
                   "sLoadingRecords": "Chargement...",
                   "sProcessing":     "Traitement...",
                   "sSearch":         "Rechercher :",
@@ -584,7 +840,7 @@
                               "_": "%d lignes sélectionnées",
                               "0": "Aucune ligne sélectionnée",
                               "1": "1 ligne sélectionnée"
-                          } 
+                          }
                   }
                 },
                 ajax:{
@@ -593,7 +849,7 @@
                 },
 
                 columns:[
-                       
+
                        {
                           data:'name',
                           name:'name'
@@ -629,7 +885,7 @@
                 var temp_array2= regions.map(function(item){
                     return item.population;
                 });
-                
+
                 var highest_value2 = Math.max.apply(Math, temp_array2);
                 for(i = 0; i < regions.length; i++) {
 
@@ -637,41 +893,12 @@
                     .css({'fill': 'rgb(128,0,0,' + regions[i].population/highest_value2 +')'})
                     .data('region', regions[i]);
                 }
-              });
-              $('#canvas').empty();
-              console.log('Names->');
-              console.log(Names);
-              console.log('Values->');
-              console.log(Values);
-              $('#canvas').remove();
-              $('#chart').html('<canvas id="canvas" height="250" width="600"></canvas>');
-              var ctx = document.getElementById("canvas").getContext('2d');
-               var chart = new Chart(ctx, {
-                  type: 'bar',
-                  data: {
-                      labels:Names,
-                      datasets: [{
-                          label: 'Valeur',
-                          data:Values,
-                          backgroundColor:'rgb(0,128,128, 0.6)',
-                          borderColor:'rgb(0,0,0, 0.8)',
-                          borderWidth: 1
-                
-                      }]
-                  },
-                  options: {
-                      scales: {
-                          yAxes: [{
-                              ticks: {
-                                  beginAtZero:true
-                              }
-                          }]
-                      }
-                  }
+
               });
 
+
               }, 1000);
-               
+
             }
 
   //Script Carte SVG Cliquable
@@ -680,119 +907,119 @@
           {
               "region_name": "Alaotra Mangoro",
               "region_code": "alaomang",
-              "population": 97
+              "population": 0
           },
           {
               "region_name": "Amoron'I Mania",
               "region_code": "amorman",
-              "population": 57
+              "population": 0
           },
           {
               "region_name": "Analamanga",
               "region_code": "analam",
-              "population": 55
+              "population": 0
           },
           {
               "region_name": "Analanjirofo",
               "region_code": "analanji",
-              "population": 49
+              "population": 0
           },
           {
               "region_name": "Androy",
               "region_code": "andr",
-              "population": 48
+              "population": 0
           },
           {
               "region_name": "Anosy",
               "region_code": "anos",
-              "population": 43
+              "population": 0
           },
           {
               "region_name": "Atsimo Andrefana",
               "region_code": "atsimoandre",
-              "population": 43
+              "population": 0
           },
           {
               "region_name": "Atsimo Atsinanana",
               "region_code": "atsimoatsi",
-              "population": 40
+              "population": 0
           },
           {
               "region_name": "Atsinanana",
               "region_code": "atsi",
-              "population": 36
+              "population": 0
           },
 
 
          {
               "region_name": "Betsiboka",
               "region_code": "betsi",
-              "population": 19
+              "population": 0
           },
 
 
           {
               "region_name": "Boeny",
               "region_code": "boe",
-              "population": 97
+              "population": 0
           },
 
           {
               "region_name": "Bongolava",
               "region_code": "bongo",
-              "population": 19
+              "population": 0
           },
 
-          
+
           {
               "region_name": "Diana",
               "region_code": "dia",
-              "population": 16
+              "population": 0
           },
           {
               "region_name": "Haute Matsiatra",
               "region_code": "hautema",
-              "population": 15
+              "population": 0
           },
           {
               "region_name": "Ihorombe",
               "region_code": "ihoro",
-              "population": 15
+              "population": 0
           },
           {
               "region_name": "Itasy",
               "region_code": "ita",
-              "population": 13
+              "population": 0
           },
           {
               "region_name": "Melaky",
               "region_code": "mela",
-              "population": 12
+              "population": 0
           },
           {
               "region_name": "Menabe",
               "region_code": "mena",
-              "population": 10
+              "population": 0
           },
           {
               "region_name": "Sava",
               "region_code": "sav",
-              "population": 88
+              "population": 0
           },
           {
               "region_name": "Sofia",
               "region_code": "sof",
-              "population": 57
+              "population": 0
           },
           {
               "region_name": "Vakinankaratra",
               "region_code": "vakina",
-              "population": 31
+              "population": 0
           },
           {
               "region_name": "Vatovavy Fitovinany",
               "region_code": "vatofito",
-              "population": 12
+              "population": 0
           }
       ];
 
@@ -803,7 +1030,7 @@
         var highest_value = Math.max.apply(Math, temp_array);
 
         $(function() {
-          
+
             for(i = 0; i < regions.length; i++) {
 
                 $('#'+ regions[i].region_code)
@@ -827,7 +1054,7 @@
                 /*var temp_array2= regions.map(function(item){
                     return item.population;
                 });
-                
+
                 var highest_value2 = Math.max.apply(Math, temp_array2);
                 for(i = 0; i < regions.length; i++) {
 
@@ -835,9 +1062,9 @@
                 .css({'fill': 'rgb(128,0,0,' + regions[i].population/highest_value2 +')'})
                 .data('region', regions[i]);
             }*/
-                
+
               });
-                
+
                 $('<div class="info_panel">'+
                     region_data.region_name + '<br>' +
                     'Valeur: ' + region_data.population.toLocaleString("en-UK") +
@@ -858,7 +1085,7 @@
                 });
             });
 
-            
+
 
         });
 
@@ -867,7 +1094,7 @@
 //script graphe
 
         var url = "{{url('/chart')}}";
-        var Names = new Array();  
+        var Names = new Array();
         var Values = new Array();
 
         $(document).ready(function(){
@@ -877,7 +1104,7 @@
           //var canvas = $(this).parent();})
           /*$.get(url, function(response){
             response.forEach(function(data){
-                Names.push(data.name);                
+                Names.push(data.name);
                 Values.push(data.value);
                 //console.log(data.name);
                 //console.log(data.value);
@@ -893,7 +1120,7 @@
                           backgroundColor:'rgb(0,128,128, 0.6)',
                           borderColor:'rgb(0,0,0, 0.8)',
                           borderWidth: 1
-                
+
                       }]
                   },
                   options: {
@@ -913,8 +1140,8 @@
 
 
 
-        
-        
+
+
 </script>
 
 
@@ -923,6 +1150,6 @@
 
 
 </html>
-                    
 
-                   
+
+

@@ -18,16 +18,31 @@
         top: 40%;
 
       }
-      .navbar-brand{
-        color: red;
 
-      }
+      .image{
+                        
+                text-align: left;
+                left : 15px;
+                height:60px;
+                
+                top: 0px;
+                }
+
+          .navbar-brand
+              {
+                color: white;
+                position: absolute;
+                left: 100px;
+                height: 10px;
+
+              }
    </style>
+   
     
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
     
     
     
@@ -59,7 +74,7 @@
     <body>
     
     <div id="soft-all-wrapper">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>-->
         <!-- Navigation --> 
         
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
@@ -73,7 +88,9 @@
                 </button>
 
                        
-                <a class="navbar-brand" href=""><mark>Resultat enquete par region</mark> </a>
+                <img src="{{asset('admin/image/instat.png')}}" class="image">
+               <a class="navbar-brand" href="">Institut National de la Statistique</a> 
+              </div>
             </div>
 
               <ul class="nav navbar-top-links navbar-right">
@@ -106,7 +123,13 @@
     
     @include('admin.include.stylfoot')
 
+<script src="{{ asset('admin')}}/vendor/jquery/jquery.min.js"></script>
+<script src="{{ asset('admin')}}/vendor/chartjs/dist/Chart.min.js" charset="utf-8"></script>
+<script src="{{ asset('admin')}}/vendor/chartjs/dist/Chart.bundle.min.js" charset="utf-8"></script>
 
+    <script src="{{ asset('admin')}}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    
+<script src="{{ asset('admin')}}/vendor/datatables/js/dataTables.bootstrap.min.js"></script>
 
 
 

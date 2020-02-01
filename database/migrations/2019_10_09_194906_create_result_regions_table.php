@@ -20,7 +20,7 @@ class CreateResultRegionsTable extends Migration
             $table->integer('id_indicator')->unsigned();
             $table->foreign('id_indicator')->references('id')->on('indicators')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('value',6,2);
-            $table->integer('year');
+            $table->date('year');
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class CreateResultGlobalsTable extends Migration
             $table->decimal('ensemble',6,2);
             $table->decimal('urbain',6,2);
             $table->decimal('rural',6,2);
-            $table->integer('year');
+            $table->date('year');
             $table->timestamps();
         });
     }

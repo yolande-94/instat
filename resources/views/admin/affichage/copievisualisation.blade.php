@@ -67,9 +67,9 @@
     </head>
 
     <body>
-    <script src="jquery-3.4.1.js"></script>
+    <!--<script src="jquery-3.4.1.js"></script>-->
     <div id="soft-all-wrapper">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>-->
 
         <!-- Navigation --> 
         

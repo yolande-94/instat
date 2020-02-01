@@ -48,7 +48,7 @@ class CrudSurveyController extends Controller
 
            'name' => 'required',
            'alias_survey'=> 'required',
-           'year' =>'min:4|max:4',
+           'year' =>'required',
 
         ]);
 

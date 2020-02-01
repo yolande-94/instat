@@ -1,4 +1,4 @@
-<script src="{{ asset('admin')}}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('admin')}}/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('admin')}}/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -12,4 +12,4 @@
     <script src="{{ asset('admin')}}/data/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="{{ asset('admin')}}/dist/js/sb-admin-2.js"></script>

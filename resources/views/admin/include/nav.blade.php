@@ -7,31 +7,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url('/home') }}">Administrateur</a>
+                <img src="{{asset('admin/image/instat.png')}}" class="image">
+               <a class="navbar-brand" >Institut National de la Statistique</a>
             </div>
 
               <ul class="nav navbar-top-links navbar-right">
                 
                 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>{{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
-                        </li>
-                        
-                       
-
-                        
-                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    
+                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> Deconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                             </form>
                         </li>
-                    </ul>
+                   
+                    
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
@@ -58,24 +51,14 @@
                             
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{route('enquete.index')}}">creation enquete</a>
+                                    <a href="{{route('enquete.index')}}">Consulter enquete</a>
                                 </li>
                                 
                             </ul>
                             
                         </li>
 
-                        <li>
-                            
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{ url('/importation') }}">Importation</a>
-                                </li>
-                                
-                            </ul>
-                            
-                        </li>
-
+                        
                         
                         
 

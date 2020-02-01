@@ -34,18 +34,18 @@ class ImportCsvController extends Controller
     public function index()
     {
         $surveys = Survey::orderBy('name')->get();
-        
+
             $indicators = Indicator::all();
-            
+
 
             $years = Survey::select('year')->get();
 
             $data = [
             'surveys' => $surveys,
-            
+
             'years' =>$years
             ];
-            
+
             return view('admin.import.importfile',compact('indicators','resglobs'))->with($data);
     }
 
@@ -68,7 +68,7 @@ class ImportCsvController extends Controller
         foreach ($data[0] as $key => $value) { // lire un à un la 1ère ligne pour recupérer les indicateurs, $data[0] c'est la première ligne
             $csv_header_fields[] = $key;
         }
-                
+
         $indicatorIds = array(); // création d'un tableau pour stoquer l'id des indicateurs pour les futurs enregistrements dans le database
         for ($i = 0; $i < sizeof($csv_header_fields); $i++) { // boucler suivant le nombre des colonnes
             if ($i == 0) {
@@ -79,9 +79,9 @@ class ImportCsvController extends Controller
                 $indicatorIds[$Indicator->title] = $Indicator->id; // ajout de l'id de l'indicateur dans le tableau
             }
         }
-        
+
         $csv_data = array_slice($data, 0, 1000); // récupération de toutes les lignes du fichier csv
-                
+
         for ($i = 1; $i < sizeof($csv_header_fields); $i++) { // boucler suivant le nombre des colonnes pour récuperer un à les résultats globals
             $resultGlobal = ResultGlobal::firstOrCreate([ // vérifier si le résultat global existe si n'existe pas on l'insère dans le database
                 'id_indicator' => $indicatorIds[$csv_header_fields[$i]], // recupération de l'id de l'indicateur
@@ -89,16 +89,16 @@ class ImportCsvController extends Controller
                 'urbain' => str_replace(",",".",$csv_data[1][$csv_header_fields[$i]]), // récupération de la valeur de l'indicateur pour l'urbain et on remplace les "," par un "."
                 'rural' => str_replace(",",".",$csv_data[2][$csv_header_fields[$i]]), // récupération de la valeur de l'indicateur pour rural et on remplace les "," par un "."
                 'year' => $year // récupération de l'année en cours
-            ]);  
-            
+            ]);
+
         }
-        
-        for ($i=3; $i < sizeof($csv_data); $i++) { // parcours des enregistrements des régions lignes par lignes depuis le 5 ème ligne -> fin 
+
+        for ($i=3; $i < sizeof($csv_data); $i++) { // parcours des enregistrements des régions lignes par lignes depuis le 5 ème ligne -> fin
             $name = $csv_data[$i][$csv_header_fields[0]]; // récupération du nom de région
-            
+
             $reg = Region::where('name', $name)->first(); // requette pour récupérer la région à partir du table région
             $region = $reg->id; // récupération de l'id du région
-            
+
             for ($j=1; $j < sizeof($csv_header_fields); $j++) { // boucler suivant le nombre de la colonne pour recupérer les valeurs pour l'insertion des données dans le resultat région
                 $resultRegion = ResultRegion::firstOrCreate([
                     'id_region' => $region,
@@ -106,15 +106,20 @@ class ImportCsvController extends Controller
                     'value' => str_replace(",",".",$csv_data[$i][$csv_header_fields[$j]]),
                     'year' => $year
                 ]); // vérification si le résultat région existe déjà sinon insérer dans le database
-                
+
             }
         }
 
         $timeend=microtime(true); // temps de fin de l'importation du csv
         $time=$timeend-$timestart; // calcul du temps total
-        $page_load_time = number_format($time, 3); // arrondir le temps total avec trois chiffer après virgule 
+        $page_load_time = number_format($time, 3); // arrondir le temps total avec trois chiffer après virgule
 
-        echo "<p class='text-primary' style='font-weight: bold'>Importation effectuée avec succès! (" . (sizeof($csv_data) + 1) . " lignes au total, la requête a pris " . $page_load_time . " secondes.)</p>"; // affichage du message de succès
+        if ($resultRegion->wasRecentlyCreated) {
+            echo "<p class='text-primary' style='font-weight: bold'>Importation effectuée avec succès! (" . (sizeof($csv_data) + 1) . " lignes au total, la requête a pris " . $page_load_time . " secondes.)</p>"; // affichage du message de succès
+        }
+        else {
+            echo "<p class='text-danger' style='font-weight: bold'>Ce fichier a déjà été importé. La requête a pris " . $page_load_time . " secondes.)</p>"; // affichage du message d'erreur
+        }
     }
 
 

@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/importfile', function () {
@@ -30,8 +31,9 @@ Route::post('/importation', 'ImportCsvController@import')->name('import');
 Route::get('/findan','ImportCsvController@findan');
 
 Route::resource('/enquete','CrudSurveyController');
+Route::resource('/enqueteind','CrudSurveyController@index');
 
-Route::get('/instat.mg','VisualisationController@index');
+Route::get('/instat.mg','VisualisationController@index')->name('visualize');
 Route::get('/json-indicators','VisualisationController@indicators');
 Route::get('/findyear','VisualisationController@findyear');
 
@@ -43,6 +45,8 @@ Route::get('/chart','VisualisationController@chart');
 Route::get('/ensemble','VisualisationController@ensemble');
 Route::get('/urbain','VisualisationController@urbain');
 Route::get('/rural','VisualisationController@rural');
+Route::get('/indireg','VisualisationController@indireg');
+
 
 
 

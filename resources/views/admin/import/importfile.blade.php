@@ -9,16 +9,28 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>visualisation</title>
+    <title>Institut National de la Statistique</title>
     
-    @include('admin.include.stylhead')
+    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <!--<link href="{{ asset('admin')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('admin')}}/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS
+    <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet"> -->
+
+    <!-- Custom Fonts 
+    <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
 
 
 <style>
   .container{
     position: absolute;
     right: 18%;
-    bottom: 8%;
+    bottom: 12%;
   }
 
  .cs-loader {
@@ -133,11 +145,35 @@
 
     <body>
 
-    <div id="soft-all-wrapper">
+    
+ 
+      <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
+            <div class="navbar-header">
+                                          
+               <img src="{{asset('admin/image/instat.png')}}" class="image">
+               <a class="navbar-brand" style="color: white;">Institut National de la Statistique</a> 
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                
+                
+                <li class="dropdown">
+                  
+                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" style="color: white;"><i class="fa fa-sign-out fa-fw" style="color: white;"> Deconnexion</i>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                            </form>
+                        </li>
+                   
+                </li>
+                
+                <!-- /.dropdown -->
+            </ul>
+            
 
-        
-       
-          @include('admin.include.nav')
+             
+    </nav>
            <div id="page-wrapper">
 
             <div class="container">
@@ -146,7 +182,7 @@
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
 
-                        <h2 align="center" class="panel"><strong>Importation</strong></h2>
+                        <h3 align="center" class="panel"><strong>Importation le resultat de l'enquete</strong></h3>
                         <br>
                     </div>
 
@@ -172,7 +208,7 @@
                     <label form="year" class="col-sm-2 col-form-label">Anneé Enquete</label>
                     <div class="col-sm-10">
                         
-                        <input type="text" name="year" id="year" class="taona">
+                        <input type="year" name="year" id="year" class="taona">
                     </div>
                 </div>
                 <br>
@@ -187,11 +223,12 @@
                   </div>
 
                 </div>
-                
+                <br>
 
                 <div class="form-group row">
                 <div class="col-sm-10 offset-sm-2">
                     <button type="submit" id="import" class="btn btn-primary">Importer</button>
+                     <a href="{{route('enquete.index')}}" class="btn btn-success">Retour</a>
                 </div>
                </div>
 
@@ -231,11 +268,10 @@
             <!-- /.row -->
         </div>
 
-      </div>
-    
+      
     @include('admin.include.stylfoot')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 <script>
 
     $(document).ready(function(){
@@ -288,6 +324,9 @@
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 $("#upload-progress").hide();
                 alert(textStatus + " " + errorThrown);
+                console.log(XMLHttpRequest);
+                console.log(textStatus);
+                console.log(errorThrown);
             }
 
             });

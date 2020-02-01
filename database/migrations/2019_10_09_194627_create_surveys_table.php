@@ -17,7 +17,7 @@ class CreateSurveysTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('alias_survey');
-            $table->integer('year');
+            $table->date('year');
             $table->timestamps();
         });
     }

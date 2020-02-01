@@ -227,6 +227,39 @@
 
 
 </html>
+
+
+<div class="login-panel panel panel-default" id="ryol">
+                    <div class="panel-heading" >
+                       <input type="indireg" name="indireg" class="form-control" id="indireg" value="{{$indicator->title}}" style="width: 600px;word-wrap: break-word; text-align: center; height: 40px;">
+                    </div>
+             </div>
+             $(document).on('change','#indicators',function(){
+
+            //console.log("its change");
+            var id_indireg = $(this).val();
+            var r = $(this).parent();
+            //console.log(id_enquete);
+            var op="";
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('indireg')!!}',
+                data:{'id': id_indireg},
+                dataType:'json',
+                success:function(data){
+                  //console.log("title");
+                  console.log("title");
+                  console.log(data.title);
+
+                  r.find('#indireg').val(data.title);
+                  //e.find('.typsurvey').val(data.name);
+                  //console.log(data.length);
+                },
+                 error:function(){}
+            })
+
+          });
+
                     
 
                    
