@@ -386,13 +386,11 @@
              <rect x="800" y="1570" width="60" height="50" id="color1" class="key" />
              <rect x="800" y="1640" width="60" height="50" id="color2" class="key" />
              <rect x="800" y="1710" width="60" height="50" id="color3" class="key" />
-             <rect x="800" y="1780" width="60" height="50" id="color4" class="key" />
 
              <text x="900" y="1540" id="val0">0</text>
              <text x="900" y="1610" id="val1">1 à 20</text>
              <text x="900" y="1680" id="val2">20 à 40</text>
-             <text x="900" y="1750" id="val3">50 à 60</text>
-             <text x="900" y="1820" id="val4">60 +</text>
+             <text x="900" y="1750" id="val3">60+</text>
 
         </g>
 
@@ -510,9 +508,11 @@
                 dataType:'json',
                 success:function(data){
                   console.log("ensemble");
-                  //console.log(data.ensemble);
+                  console.log(data);
 
                   e.find('#ensemble').val(data.ensemble);
+                  e.find('#urbain').val(data.urbain);
+                  e.find('#rural').val(data.rural);
                   //e.find('.typsurvey').val(data.name);
                   //console.log(data.length);
                 },
@@ -523,7 +523,7 @@
 
          //Selectionner indicateur et affiche Urbain
 
-          $(document).on('change','#indicators',function(){
+          /*$(document).on('change','#indicators',function(){
 
             //console.log("its change");
             var id_enurbain = $(this).val();
@@ -536,10 +536,10 @@
                 data:{'id': id_enurbain},
                 dataType:'json',
                 success:function(data){
-                  //console.log("urbain");
-                  //console.log(data.urbain);
+                  console.log("urbain");
+                  console.log(data);
 
-                  y .find('#urbain').val(data.urbain);
+                  y.find('#urbain').val(data.urbain);
                   //e.find('.typsurvey').val(data.name);
                   //console.log(data.length);
                 },
@@ -565,7 +565,7 @@
                 dataType:'json',
                 success:function(data){
                   console.log("rural");
-                  //console.log(data.rural);
+                  console.log(data);
 
                   z.find('#rural').val(data.rural);
                   //e.find('.typsurvey').val(data.name);
@@ -575,7 +575,7 @@
             })
 
           });
-
+*/
 
            $(document).on('change','#indicators',function(){
 
@@ -591,8 +591,8 @@
                 dataType:'json',
                 success:function(data){
                   //console.log("title");
-                  console.log("title");
-                  console.log(data.title);
+                  //console.log("title");
+                  //console.log(data.title);
 
                   r.find('#indireg').val(data.title);
                   //e.find('.typsurvey').val(data.name);
@@ -878,7 +878,7 @@
               var k = divids;
               console.log(k);
               console.log(divids);
-              for (var i = 0; i < 5; i++) {
+              for (var i = 0; i < 4; i++) {
                 j += k;
 
                 switch(i) {
@@ -889,9 +889,6 @@
                     range.push(Math.floor(j));
                   break;
                   case 3:
-                    range.push(Math.floor(j));
-                  break;
-                  case 4:
                     range.push(Math.floor(j));
                   break;
                 }
@@ -918,22 +915,19 @@
                   else if(regions[i].population > range[2] && regions[i].population < range[3]) {
                     index = 3;
                   }
-                  else if(regions[i].population > range[3] && regions[i].population < range[4]) {
-                    index = 4;
-                  }
                     $('#'+ regions[i].region_code)
                     .css({'fill': 'rgb(128,64,0,' + range[index]/Math.ceil(max) +')'})
                     .data('region', regions[i]);
                 }
               });
-              for(var i=0; i < 5; i++) {
+              for(var i=0; i < 4; i++) {
                  $('#color'+[i]).css('fill', 'rgb(128,64,0,' + range[i]/Math.ceil(max));
                  $('#val'+[i]).empty();
                  if (i == 0) {
-                  $('#val'+[i]).html(0 + ' - ' + range[0]);
+                  $('#val'+[i]).html(0 + ' à ' + range[0]);
                  }
                  else {
-                  $('#val'+[i]).html(range[i-1] + ' - ' + range[i]);
+                  $('#val'+[i]).html(range[i-1] + ' à ' + range[i]);
                  }
               }
 

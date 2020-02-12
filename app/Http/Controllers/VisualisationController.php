@@ -173,10 +173,13 @@ class VisualisationController extends Controller
       public function ensemble(Request $request)
 
     {
-      $p=DB::table('result_globals')
+      
+      /*$p=DB::table('result_globals')
                     ->join('indicators','indicators.id','=','result_globals.id_indicator')
                     ->select('result_globals.ensemble')
-                    ->where('result_globals.id',$request->id)->first();
+                    ->where('result_globals.id',$request->id)->first();*/
+        $p = ResultGlobal::where('id_indicator','=',$request->id)->first();
+
         return response()->json($p);
     }
 
