@@ -19,6 +19,20 @@
     <!-- Custom CSS -->
     <link href="{{ asset('admin')}}/dist/css/sb-admin-2.css" rel="stylesheet">
 
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('admin')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet">
+
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
     <!-- Morris Charts CSS
     <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet"> -->
 
@@ -27,10 +41,13 @@
 
 
 <style>
+  body {
+  background-color: #fff;
+       }
   .container{
     position: absolute;
-    right: 18%;
-    bottom: 12%;
+    right: 12%;
+    bottom: 10%;
   }
 
  .cs-loader {
@@ -140,6 +157,7 @@
 
 }
 
+
 </style>
     </head>
 
@@ -156,17 +174,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 
                 
-                <li class="dropdown">
-                  
-                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" style="color: white;"><i class="fa fa-sign-out fa-fw" style="color: white;"> Deconnexion</i>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                            </form>
-                        </li>
-                   
-                </li>
+                
                 
                 <!-- /.dropdown -->
             </ul>
@@ -174,15 +182,15 @@
 
              
     </nav>
-           <div id="page-wrapper">
+           
 
-            <div class="container">
+      <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-6">
+            <div class="col-md-6 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
 
-                        <h3 align="center" class="panel"><strong>Importation le resultat de l'enquete</strong></h3>
+                        <h3 align="center" class="panel"><strong>Importation le résultat de l'enquête</strong></h3>
                         <br>
                     </div>
 
@@ -190,10 +198,10 @@
                         <form id="my_form" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                  <div class="form-group row{{ $errors->has('survey') ? 'has-error':'' }}">
-                    <label form="survey" class="col-sm-2 col-form-label">Enquetes</label>
+                    <label form="survey" class="col-sm-2 col-form-label">Enquête</label>
                     <div class="col-sm-10">
                         <select id="id_survey" class="select_survey" name="id_survey" >
-                          <option value="0" disabled="true" selected="true">selectionner un enquetes...</option>
+                          <option value="0" disabled="true" selected="true">selectionner un enquête...</option>
                                 @foreach($surveys as $survey)
                                 <option value="{{ $survey->id }}"> {{ $survey->alias_survey}} </option>
                                 @endforeach
@@ -205,7 +213,7 @@
                 
 
                 <div class="form-group row{{ $errors->has('year') ? 'has-error':'' }}">
-                    <label form="year" class="col-sm-2 col-form-label">Anneé Enquete</label>
+                    <label form="year" class="col-sm-2 col-form-label">Année Enquête</label>
                     <div class="col-sm-10">
                         
                         <input type="year" name="year" id="year" class="taona">
@@ -217,7 +225,7 @@
                 
                 <div class="form-group row{{ $errors->has('file') ? 'has-error':'' }}">
                   
-                  <label form="file" class="col-sm-2 col-form-label">fichier csv</label>
+                  <label form="file" class="col-sm-2 col-form-label">Fichier</label>
                   <div class="col-sm-6">
                           <input type="file" name="file" class="form-control-file">
                   </div>
@@ -265,8 +273,7 @@
 
 
 
-            <!-- /.row -->
-        </div>
+            
 
       
     @include('admin.include.stylfoot')
@@ -319,7 +326,7 @@
             success: function(response) {
                 $("#server-results").html(response);
                 $("#upload-progress").hide();
-                setTimeout(hideMsg,10000);
+                //setTimeout(hideMsg,10000);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 $("#upload-progress").hide();

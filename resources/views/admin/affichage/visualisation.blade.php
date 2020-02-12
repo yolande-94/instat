@@ -10,34 +10,31 @@
     <meta name="author" content="">
 
     <title>Institut National de la Statistique</title>
-
-
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
 
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-        <!-- Bootstrap Core CSS -->
-    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('admin')}}/vendor/datatables/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin')}}/vendor/datatables/css/dataTables.bootstrap.min.css">
-
-
-
-
-
+    
+    
+    
+    
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
 
     <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css">-->
-    <!--<link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">-->
-
-
+    <!--<link rel="stylesheet" type="text/css" href="{{ asset('admin/dist/css/style.css')}}">--s>
+    
+    <!- Bootstrap Core CSS -->
+    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="{{ asset('admin')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-
+    
 
     <!-- Morris Charts CSS -->
     <link href="{{ asset('admin')}}/vendor/morrisjs/morris.css" rel="stylesheet">
@@ -45,6 +42,7 @@
 
     <!-- Custom Fonts -->
     <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <style>
           .panel-heading{
             word-wrap: break-word;
@@ -159,9 +157,9 @@
 
             <!--<center>-->
 
-                <span><strong>Alias Enquete:</strong></span>
-                <select style="width: 200px;" class="surveyname" name="survey"  id="survey">
-                    <option value="0" disabled="true"> selectionner un enquete</option>
+                <span style="margin-left: 25px;"><strong>Pseudo enquête:</strong></span>
+                <select style="width: 120px; " class="surveyname" name="survey"  id="survey">
+                    <option value="0" disabled="true" style="width: 100px;> selectionner un enquête</option>
                            @foreach( $surveys as $key => $value)
                            @if($value->id == $survey->id)
                       <option value="{{$value->id}}" selected>{{$value->alias_survey}}</option>
@@ -171,23 +169,23 @@
                           @endforeach
                     </select>
 
-                <span><strong>Enquete:</strong></span>
-                <input type="typsurvey" name="typsurvey" class="typsurvey" id="typsurvey" value="{{$typsurvey->name}}">
+                <span style="margin-left: 10px;"><strong>Enquête:</strong></span>
+                <input type="typsurvey" name="typsurvey" class="typsurvey" id="typsurvey" value="{{$typsurvey->name}}" style="width: 100px;">
 
-                <span><strong>Anneé:</strong></span>
-                    <input type="text" name="year" class="year" id="year" value="{{$year->year}}">
+                <span style="margin-left: 10px;"><strong>Année:</strong></span>
+                    <input type="text" name="year" class="year" id="year" value="{{$year->year}}" style="width: 100px;">
 
 
-                <span><strong>Indicateurs:</strong></span>
+                <span style="margin-left: 10px;"><strong>indicateur:</strong></span>
                     <select style="width: 200px;" id="indicators" name="indicators" >
 
-                        <option value="0" disabled="true">selectionner un indicateurs</option>
+                        <option value="0" disabled="true" style="width: 200px;">selectionner un indicateur</option>
                         @if(isset($indicator->id))
                         @foreach ($indicators as $ind)
                             @if($indicator->id == $ind->id)
-                                <option value="{{$indicator->id}}" selected>{{$indicator->title}}</option>
+                                <option value="{{$indicator->id}}" style="width: 200px;" selected>{{$indicator->title}}</option>
                             @else
-                                <option value="{{$ind->id}}">{{$ind->title}}</option>
+                                <option value="{{$ind->id}}" style="width: 200px;">{{$ind->title}}</option>
                             @endif
                         @endforeach
 
@@ -195,19 +193,18 @@
 
                     </select>
 
-                    <span><strong>Afficher:</strong></span>
-                 <select style="width: 100px;" id="chartSelect" name="chartSelect">
-                    <option value="bar" selected>Barre</option>
-                    <option value="line">Ligne</option>
-                    <option value="lineArea">Ligne (région)</option>
-                    <option value="radar">Radar</option>
+                <span style="margin-left: 10px;"><strong>Types graphe:</strong></span>
+                 <select style="width: 195px;" id="chartSelect" name="chartSelect">
+                  <option value="" selected>Choisir un type de graphes</option>
+                    <option value="bar">Barre</option>
+                    <!--<option value="radar">Radar</option>-->
                     <option value="polarArea">Polaire</option>
                     <option value="pie">Camember</option>
                     <option value="doughnut">Doughnut</option>
                 </select>
-                <button type="button" id="affich" class="btn btn-secondary">
+                <!--<button type="button" id="affich" class="btn btn-secondary" style="margin-left: 20px;">
                 Graphique
-                </button>
+                </button>-->
 
                 <br />
                  @if(isset($indicator->id))
@@ -216,7 +213,7 @@
 
 
 
-            <div class="container1">
+                <div class="container1">
 
 
 
@@ -233,7 +230,7 @@
                  <br> <br>
 
 
-       </div>
+                </div>
 
 
 
@@ -253,7 +250,7 @@
               <div class="col-md-10 col-md-offset-1">
                   <div class="panel panel-default">
                       <div class="panel-heading" align="right"><button type="button" class="btn btn-primary" data-dismiss="modal">Retour</button>
-                          <h5 align="left" ><b><strong>Presentation graphique le resultat des enquetes par region:</strong></b> </h5>
+                          <h5 align="left" ><b><strong>Présentation graphique du résultat d'enquête par région:</strong></b> </h5>
 
                       </div>
 
@@ -303,7 +300,7 @@
 
 <div class="map" id="map">
 
-<svg baseprofile="tiny" fill="#ccc" height="700" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width=1  version="1.2" viewbox="0 0 1000 1985" width="650" xmlns="http://www.w3.org/2000/svg">
+<svg baseprofile="tiny" fill="#ccc" height="700" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width=1  version="1.2" viewbox="0 0 1000 1985" width="600" xmlns="http://www.w3.org/2000/svg">
         <style type="text/css">
 
                 path:hover {
@@ -385,15 +382,17 @@
 
         <g id="legende" class="label" >
 
-             <rect x="800" y="1500" width="60" height="50" class="key colour0" />
-             <rect x="800" y="1570" width="60" height="50" class="key colour1" />
-             <rect x="800" y="1640" width="60" height="50" class="key colour2" />
-             <rect x="800" y="1710" width="60" height="50" class="key colour3" />
+             <rect x="800" y="1500" width="60" height="50" id="color0" class="key" />
+             <rect x="800" y="1570" width="60" height="50" id="color1" class="key" />
+             <rect x="800" y="1640" width="60" height="50" id="color2" class="key" />
+             <rect x="800" y="1710" width="60" height="50" id="color3" class="key" />
+             <rect x="800" y="1780" width="60" height="50" id="color4" class="key" />
 
-             <text x="900" y="1540">0</text>
-             <text x="900" y="1610">1 à 20</text>
-             <text x="900" y="1680">20 à 40</text>
-             <text x="900" y="1750">50 +</text>
+             <text x="900" y="1540" id="val0">0</text>
+             <text x="900" y="1610" id="val1">1 à 20</text>
+             <text x="900" y="1680" id="val2">20 à 40</text>
+             <text x="900" y="1750" id="val3">50 à 60</text>
+             <text x="900" y="1820" id="val4">60 +</text>
 
         </g>
 
@@ -625,7 +624,7 @@
 
           });
 
-          $('#affich').click(function() {
+          $('#chartSelect').change(function() {
             var array = $('#value_indicator').DataTable().rows().data().toArray();
             var region_data=$(this).data('region');
               Names = new Array();
@@ -647,15 +646,6 @@
                   case 'bar':
                   showCanvas('bar', true, Values, Names);
                   break;
-                  case 'line':
-                  showCanvas('line', false, Values, Names);
-                  break;
-                  case 'lineArea':
-                  showCanvas('line', true, Values, Names);
-                  break;
-                  case 'radar':
-                  showCanvas('radar', false, Values, Names);
-                  break;
                   case 'polarArea':
                   showCanvasColor('polarArea', Values, Names);
                   break;
@@ -665,12 +655,14 @@
                   case 'doughnut':
                   showCanvasColor('doughnut', Values, Names);
                   break;
+                  default:
+                  return false;
+                  break;
               }
 
-            $('#exampleModal').modal();
-          });
-          });
-
+              $('#exampleModal').modal();
+              document.getElementById('chartSelect').selectedIndex = 0;});
+              });
         function showCanvas(type, fill, Values, Names) {
             $('#canvas').empty();
               $('#canvas').remove();
@@ -780,18 +772,7 @@
                       }]
                   },
                   options: {
-                      scales: {
-                          yAxes: [{
-                              ticks: {
-                                  beginAtZero:true
-                              }
-                          }],
-                          xAxes: [{
-                              ticks: {
-                              autoSkip: false
-                              }
-                              }]
-                      },
+                      
                       responsive: true,
                       //maintainAspectRatio: false,
                       animation: {
@@ -870,9 +851,14 @@
               var region_data=$(this).data('region');
               Names = new Array();
               Values = new Array();
+              var max = 0;
               array.forEach(function(item, index) {
                 var name = item.name.replace('&#039;','\'');
-                //console.log(name);
+                if (parseFloat(item.value) > max) {
+                      max = parseFloat(item.value);
+                      localStorage.setItem('max', max);
+                      //console.log('max', max);
+                    }
 
                 for (i = 0; i < regions.length; i++) {
                   if(name == regions[i].region_name.toUpperCase()) {
@@ -882,22 +868,77 @@
                   }
                 }
 
-                var temp_array2= regions.map(function(item){
-                    return item.population;
-                });
+              });
+              // end foreach
+              //max = localStorage.getItem('max');
+              console.log(max);
+              var divids = max / 5;
+              var j = 0,
+              range = [];
+              var k = divids;
+              console.log(k);
+              console.log(divids);
+              for (var i = 0; i < 5; i++) {
+                j += k;
 
-                var highest_value2 = Math.max.apply(Math, temp_array2);
+                switch(i) {
+                  case 1:
+                    range.push(Math.floor(j));
+                  break;
+                  case 2:
+                    range.push(Math.floor(j));
+                  break;
+                  case 3:
+                    range.push(Math.floor(j));
+                  break;
+                  case 4:
+                    range.push(Math.floor(j));
+                  break;
+                }
+                console.log('val : ' +j);
+              }
+              range.push(Math.ceil(max));
+              console.log(range);
+
+              array.forEach(function(item,index) {
+                var index = 0;
+                
+
+                
                 for(i = 0; i < regions.length; i++) {
-
+                  if(regions[i].population < range[0]) {
+                    index = 0;
+                  }
+                  else if(regions[i].population > range[0] && regions[i].population < range[1]) {
+                    index = 1;
+                  }
+                  else if(regions[i].population > range[1] && regions[i].population < range[2]) {
+                    index = 2;
+                  }
+                  else if(regions[i].population > range[2] && regions[i].population < range[3]) {
+                    index = 3;
+                  }
+                  else if(regions[i].population > range[3] && regions[i].population < range[4]) {
+                    index = 4;
+                  }
                     $('#'+ regions[i].region_code)
-                    .css({'fill': 'rgb(128,0,0,' + regions[i].population/highest_value2 +')'})
+                    .css({'fill': 'rgb(128,64,0,' + range[index]/Math.ceil(max) +')'})
                     .data('region', regions[i]);
                 }
-
               });
+              for(var i=0; i < 5; i++) {
+                 $('#color'+[i]).css('fill', 'rgb(128,64,0,' + range[i]/Math.ceil(max));
+                 $('#val'+[i]).empty();
+                 if (i == 0) {
+                  $('#val'+[i]).html(0 + ' - ' + range[0]);
+                 }
+                 else {
+                  $('#val'+[i]).html(range[i-1] + ' - ' + range[i]);
+                 }
+              }
 
-
-              }, 1000);
+             
+              }, 1500);
 
             }
 
@@ -1024,69 +1065,45 @@
       ];
 
 
-        var temp_array= regions.map(function(item){
-            return item.population;
-        });
+        var temp_array= regions.map(function(item)
+            {
+              return item.population;
+            });
         var highest_value = Math.max.apply(Math, temp_array);
-
         $(function() {
-
-            for(i = 0; i < regions.length; i++) {
-
-                $('#'+ regions[i].region_code)
-                .css({'fill': 'rgb(128,0,0,' + regions[i].population/highest_value +')'})
-                .data('region', regions[i]);
+        for(i = 0; i < regions.length; i++) 
+            {
+              $('#'+ regions[i].region_code)
+              .css({'fill': 'rgb(150,75,0,' + regions[i].population/highest_value +')'})
+              .data('region', regions[i]);
             }
-
-            $('.map path').mouseover(function (e) {
-              //console.log('marche');
-             // console.log($(this).data('region'));
-             var array = $('#value_indicator').DataTable().rows().data().toArray();
-              //console.log(array);
-              var region_data=$(this).data('region');
-
-              array.forEach(function(item, index) {
-                var name = item.name.replace('&#039;','\'');
-                //console.log(name);
-                for (i = 0; i < regions.length; i++) {
+        $('.map path').mouseover(function (e) {
+        var array = $('#value_indicator').DataTable().rows().data().toArray();
+        var region_data=$(this).data('region');
+        array.forEach(function(item, index) {
+        var name = item.name.replace('&#039;','\'');
+            for(i = 0; i < regions.length; i++) 
+                {
                   if(name == regions[i].region_name.toUpperCase()) regions[i].population = item.value;
                 }
-                /*var temp_array2= regions.map(function(item){
-                    return item.population;
-                });
-
-                var highest_value2 = Math.max.apply(Math, temp_array2);
-                for(i = 0; i < regions.length; i++) {
-
-                $('#'+ regions[i].region_code)
-                .css({'fill': 'rgb(128,0,0,' + regions[i].population/highest_value2 +')'})
-                .data('region', regions[i]);
-            }*/
-
               });
-
-                $('<div class="info_panel">'+
-                    region_data.region_name + '<br>' +
-                    'Valeur: ' + region_data.population.toLocaleString("en-UK") +
-                    '</div>'
-                 )
+        $('<div class="info_panel">'+region_data.region_name + '<br>' +
+                'Valeur: ' + region_data.population.toLocaleString("en-UK") +'</div>')
                 .appendTo('body');
+              })
+        .mouseleave(function () 
+            {
+              $('.info_panel').remove();
             })
-            .mouseleave(function () {
-                $('.info_panel').remove();
-            })
-            .mousemove(function(e) {
-                var mouseX = e.pageX, //X coordinates of mouse
-                    mouseY = e.pageY; //Y coordinates of mouse
-
-                $('.info_panel').css({
-                    top: mouseY-50,
-                    left: mouseX - ($('.info_panel').width()/2)
-                });
+        .mousemove(function(e) {
+        var mouseX = e.pageX, //X coordinates of mouse
+        mouseY = e.pageY; //Y coordinates of mouse
+        $('.info_panel').css
+            ({
+              top: mouseY-50,
+              left: mouseX - ($('.info_panel').width()/2)
             });
-
-
-
+        });
         });
 
 

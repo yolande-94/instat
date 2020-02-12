@@ -19,10 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <!- Bootstrap Core CSS -->
-    <link href="{{ asset('admin')}}/vendor/bootstrap/css/bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('admin')}}/vendor/datatables/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin')}}/vendor/datatables/css/dataTables.bootstrap4.min.css">
+
     <style type="text/css">
     	#mapsvg:hover {
    fill: blue;
@@ -78,23 +75,20 @@
 
 </head>
 <body>
-	<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="nav">
 			<div class="navbar-header">
                                           
                <img src="{{asset('admin/image/instat.png')}}" class="image">
                <a class="navbar-brand" style="color: white;">Institut National de la Statistique</a> 
             </div>
-            <ul class="nav navbar-top-links">
-            <li><a href="{{ route('visualize') }}">Visualisation</a></li>
-            </ul>
             <ul class="nav navbar-top-links navbar-right">
                 
                 
                 <li class="dropdown">
                      <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" style="color: white;"><i class="fa fa-sign-out fa-fw" style="white"></i> Deconnexion
+                                document.getElementById('logout-form').submit();" style="color: white;"><i class="fa fa-sign-out fa-fw" style="white"></i> Déconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -115,7 +109,7 @@
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">creation de nouveau enquete</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">creation de nouveau enquête</h5>
 
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
@@ -128,19 +122,19 @@
 				        
 				<div class="modal-body">
 				  <div class="form-group">
-				    <label >Nom Enquete:</label>
+				    <label >Nom Enquête:</label>
 				    <input type="text" name="name" class="form-control"  placeholder="entrer un enquete...">
 				    
 				  </div>
 
 				  <div class="form-group">
-				    <label >Alias Enquete:</label>
+				    <label >Pseudo Enquête:</label>
 				    <input type="text" name="alias_survey" class="form-control"  placeholder="entrer l'alias de l'enquete...">
 				  </div>  
 
 				  <div class="form-group">
-				    <label >Année Enquete:</label>
-				    <input type="date" name="year" class="form-control">
+				    <label >Année Enquête:</label>
+				    <input type="date" name="year"  class="form-control">
 				  </div>  
 
 				  
@@ -236,7 +230,8 @@
 		<div class="container">
 
 			<div class="container">
-			<h3 align="center"> Listes des Enquetes </h3>
+			<h3 align="center"> Listes des enquêtes </h3>
+			<br>
 			@if(count($errors) > 0)
 			<div class="alert alert-danger">
 				<ul>
@@ -256,19 +251,19 @@
 			@endif
 			
 	        <a href="{{ url('/importation') }}"class="btn btn-secondary"> Importation </a>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-			  Ajouter
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+			  Ajouter nouvelle enquête
 		    </button>
 		  
 		   
 	<br><br>
-			<table id="datatable" class="table table-bordered table-striped table-dark ">
+			<table id="datatable" class="table table-bordered table-striped table-light ">
 	  <thead>
 	    <tr>
-	      <th scope="col">ID Enquete</th>
-	      <th scope="col">Nom Enquete</th>
-	      <th scope="col">Alias Enquete</th>
-	      <th scope="col">Année Enquete</th>
+	      <th scope="col">ID Enquête</th>
+	      <th scope="col">Nom Enquête</th>
+	      <th scope="col">Pseudo Enquête</th>
+	      <th scope="col">Année Enquête</th>
 	      <th scope="col">Action</th>
 	      
 	    </tr>
@@ -281,7 +276,7 @@
 	      <td>{{$surv->alias_survey }}</td>
 	      <td>{{$surv->year }}</td>
 	      <td>
-	      	<a href="#"  class="btn btn-success edit">Modifier</a>
+	      	<a href="#"  class="btn btn-primary edit">Modifier</a>
 	      	<a href="#" class="btn btn-danger delete">Supprimer</a>
 	      </td>
 	    </tr>
@@ -292,17 +287,12 @@
 
 
 <!-- code java script -->
-<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>-->
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="{{ asset('admin')}}/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ asset('admin')}}/vendor/bootstrap/js/bootstrap4.min.js"></script>
-    <script src="{{ asset('admin')}}/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    
-<script src="{{ asset('admin')}}/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){

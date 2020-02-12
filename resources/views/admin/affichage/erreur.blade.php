@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>visualisation</title>
+    <title>Institut National de la Statistique</title>
     
    <style type="text/css">
      #erreur{
@@ -89,7 +89,7 @@
 
                        
                 <img src="{{asset('admin/image/instat.png')}}" class="image">
-               <a class="navbar-brand" href="">Institut National de la Statistique</a> 
+               <a class="navbar-brand" style="color: white;">Institut National de la Statistique</a> 
               </div>
             </div>
 

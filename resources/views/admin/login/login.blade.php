@@ -39,7 +39,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 align="center" class="panel-title"><strong>Authentification</strong></h3>
+                        <h3 align="center" class="panel-title">Authentification</h3>
                     </div>
                     <div class="panel-body">
                         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
@@ -47,10 +47,10 @@
 
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Adresse email" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder=" Mot de passe" name="password" type="password" value="">
                                 </div>
                                 <!--<div class="checkbox">
                                     <label>

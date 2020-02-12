@@ -63,12 +63,13 @@ class ImportCsvController extends Controller
         $surveys = $request->id_survey; // recupération de l'id de l'enquête
         $group = $request->group; // recupération du groupe de l'enquête
         $year = $request->year; // recupération de l'année de l'enquête
+        //echo 'surveys: '. $surveys . ' group: ' . $group . ' year: '. $year;
 
         $csv_header_fields = []; // tableau qui va contenir les entêtes (indicateurs)
         foreach ($data[0] as $key => $value) { // lire un à un la 1ère ligne pour recupérer les indicateurs, $data[0] c'est la première ligne
             $csv_header_fields[] = $key;
         }
-
+        //var_dump($csv_header_fields);
         $indicatorIds = array(); // création d'un tableau pour stoquer l'id des indicateurs pour les futurs enregistrements dans le database
         for ($i = 0; $i < sizeof($csv_header_fields); $i++) { // boucler suivant le nombre des colonnes
             if ($i == 0) {
@@ -76,6 +77,9 @@ class ImportCsvController extends Controller
             }
             else {
                 $Indicator = Indicator::firstOrCreate(['title' => $csv_header_fields[$i], 'id_survey' => $surveys]); // vérifier si l'indicateur existe, si il existe on recupère l'enregistrement sinon on l'insère dans le database
+                /*if (!$Indicator->exists) {
+                    $Indicator->save();
+                }*/
                 $indicatorIds[$Indicator->title] = $Indicator->id; // ajout de l'id de l'indicateur dans le tableau
             }
         }
@@ -85,11 +89,14 @@ class ImportCsvController extends Controller
         for ($i = 1; $i < sizeof($csv_header_fields); $i++) { // boucler suivant le nombre des colonnes pour récuperer un à les résultats globals
             $resultGlobal = ResultGlobal::firstOrCreate([ // vérifier si le résultat global existe si n'existe pas on l'insère dans le database
                 'id_indicator' => $indicatorIds[$csv_header_fields[$i]], // recupération de l'id de l'indicateur
-                'ensemble' => str_replace(",",".",$csv_data[0][$csv_header_fields[$i]]),  // récupération de la valeur de l'indicateur pour l'ensemble et on remplace les "," par un "."
-                'urbain' => str_replace(",",".",$csv_data[1][$csv_header_fields[$i]]), // récupération de la valeur de l'indicateur pour l'urbain et on remplace les "," par un "."
-                'rural' => str_replace(",",".",$csv_data[2][$csv_header_fields[$i]]), // récupération de la valeur de l'indicateur pour rural et on remplace les "," par un "."
+                'ensemble' => round(floatval(str_replace(",",".",$csv_data[0][$csv_header_fields[$i]])),2),  // récupération de la valeur de l'indicateur pour l'ensemble et on remplace les "," par un "."
+                'urbain' => round(floatval(str_replace(",",".",$csv_data[1][$csv_header_fields[$i]])),2), // récupération de la valeur de l'indicateur pour l'urbain et on remplace les "," par un "."
+                'rural' => round(floatval(str_replace(",",".",$csv_data[2][$csv_header_fields[$i]])),2), // récupération de la valeur de l'indicateur pour rural et on remplace les "," par un "."
                 'year' => $year // récupération de l'année en cours
             ]);
+            /*if ($i < 5) {
+                    echo 'result: ' . $resultGlobal->id . ' first: ' . $resultGlobal->exists . '<br>';
+                }*/
 
         }
 
@@ -103,7 +110,7 @@ class ImportCsvController extends Controller
                 $resultRegion = ResultRegion::firstOrCreate([
                     'id_region' => $region,
                     'id_indicator' => $indicatorIds[$csv_header_fields[$j]],
-                    'value' => str_replace(",",".",$csv_data[$i][$csv_header_fields[$j]]),
+                    'value' => round(floatval(str_replace(",",".",$csv_data[$i][$csv_header_fields[$j]])),2),
                     'year' => $year
                 ]); // vérification si le résultat région existe déjà sinon insérer dans le database
 

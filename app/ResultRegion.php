@@ -12,4 +12,7 @@ class ResultRegion extends Model
     {
     	return $this->belongsTo('App\Indicator','id_indicator');
     }
+
+
+     
 }
