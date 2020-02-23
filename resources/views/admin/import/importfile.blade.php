@@ -190,7 +190,7 @@
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
 
-                        <h3 align="center" class="panel"><strong>Importation le résultat de l'enquête</strong></h3>
+                        <h3 align="center" class="panel"><strong>Importation du résultat de l'enquête</strong></h3>
                         <br>
                     </div>
 
@@ -213,7 +213,7 @@
                 
 
                 <div class="form-group row{{ $errors->has('year') ? 'has-error':'' }}">
-                    <label form="year" class="col-sm-2 col-form-label">Année Enquête</label>
+                    <label form="year" class="col-sm-2 col-form-label">Date de publication</label>
                     <div class="col-sm-10">
                         
                         <input type="year" name="year" id="year" class="taona">
@@ -225,7 +225,7 @@
                 
                 <div class="form-group row{{ $errors->has('file') ? 'has-error':'' }}">
                   
-                  <label form="file" class="col-sm-2 col-form-label">Fichier</label>
+                  <label form="file" class="col-sm-2 col-form-label">Fichier à importer</label>
                   <div class="col-sm-6">
                           <input type="file" name="file" class="form-control-file">
                   </div>

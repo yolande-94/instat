@@ -70,15 +70,9 @@ class CrudSurveyController extends Controller
 
                      if( $survs)
                     {
-                        return redirect('/enquete')->with('success', 'donnée sauvegardé');
+                        return redirect('/enquete')->with('success', 'Enquête sauvegardée!');
                     }
                     
-                    else{
-                         
-                         return redirect('/enquete')->with('success', 'donnée sauvegardé');
-
-                    }
-                     
 
                      
 
@@ -143,7 +137,7 @@ class CrudSurveyController extends Controller
 
         
 
-         return redirect('/enquete')->with('success', 'modification avec succès');
+         return redirect('/enquete')->with('success', 'Modification effectuée avec succès!');
 
          
     }
@@ -158,6 +152,6 @@ class CrudSurveyController extends Controller
     {
         $survs = Survey::find($id);
         $survs->delete();
-         return redirect('/enquete')->with('success', 'suppression avec succès');
+         return redirect('/enquete')->with('success', 'Suppression effectuée  avec succès');
     } 
 }

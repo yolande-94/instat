@@ -109,7 +109,7 @@
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">creation de nouveau enquête</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">Ajout d'une nouvelle enquête</h5>
 
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
@@ -122,18 +122,18 @@
 				        
 				<div class="modal-body">
 				  <div class="form-group">
-				    <label >Nom Enquête:</label>
+				    <label >Nom:</label>
 				    <input type="text" name="name" class="form-control"  placeholder="entrer un enquete...">
 				    
 				  </div>
 
 				  <div class="form-group">
-				    <label >Pseudo Enquête:</label>
+				    <label >Pseudo:</label>
 				    <input type="text" name="alias_survey" class="form-control"  placeholder="entrer l'alias de l'enquete...">
 				  </div>  
 
 				  <div class="form-group">
-				    <label >Année Enquête:</label>
+				    <label >Date de publication:</label>
 				    <input type="date" name="year"  class="form-control">
 				  </div>  
 
@@ -154,7 +154,7 @@
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="staticBackdropLabel">Modification</h5>
+		        <h5 class="modal-title" id="staticBackdropLabel">Modification d'une enquête</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -168,18 +168,18 @@
 		        
 		
 		  <div class="form-group">
-		    <label >Nom Enquete:</label>
+		    <label >Nom:</label>
 		    <input type="text" name="name" class="form-control" id="name" placeholder="entrer un enquete...">
 		    
 		  </div>
 
 		  <div class="form-group">
-		    <label >Alias Enquete:</label>
+		    <label >Pseudo:</label>
 		    <input type="text" name="alias_survey" class="form-control" id="alias_survey" placeholder="entrer l'alias de l'enquete...">
 		  </div>  
 
 		  <div class="form-group">
-		    <label >Année Enquete:</label>
+		    <label >Date de publication:</label>
 		    <input type="text" name="year" class="form-control" id="year">
 		  </div>  
 
@@ -200,7 +200,7 @@
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="staticBackdropLabel">Suppression</h5>
+		        <h5 class="modal-title" id="staticBackdropLabel">Suppression d'une enquête</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -213,12 +213,12 @@
 		<div class="modal-body">
 		        
 		  <input type="hidden" name="methode" value="DELETE">
-		  <p>voulez-vous le supprimer vraiment?</p>
+		  <p>Voulez-vous vraiment supprimer cette enquête?</p>
 		  
 		  </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-		        <button type="submit" class="btn btn-primary">Oui, supprimer</button>
+		        <button type="submit" class="btn btn-primary">Supprimer</button>
 		      </div>
 		   </form>
 		    </div>
@@ -230,7 +230,7 @@
 		<div class="container">
 
 			<div class="container">
-			<h3 align="center"> Listes des enquêtes </h3>
+			<h3 align="center"> Liste des enquêtes </h3>
 			<br>
 			@if(count($errors) > 0)
 			<div class="alert alert-danger">
@@ -251,8 +251,8 @@
 			@endif
 			
 	        <a href="{{ url('/importation') }}"class="btn btn-secondary"> Importation </a>
-			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-			  Ajouter nouvelle enquête
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			  Ajouter
 		    </button>
 		  
 		   
@@ -260,11 +260,11 @@
 			<table id="datatable" class="table table-bordered table-striped table-light ">
 	  <thead>
 	    <tr>
-	      <th scope="col">ID Enquête</th>
-	      <th scope="col">Nom Enquête</th>
-	      <th scope="col">Pseudo Enquête</th>
-	      <th scope="col">Année Enquête</th>
-	      <th scope="col">Action</th>
+	      <th scope="col">ID</th>
+	      <th scope="col">Nom</th>
+	      <th scope="col">Pseudo</th>
+	      <th scope="col">Date de publication</th>
+	      <th scope="col">Actions</th>
 	      
 	    </tr>
 	  </thead>
@@ -274,7 +274,7 @@
 	      <th>{{$surv->id }}</th>
 	      <td>{{$surv->name }}</td>
 	      <td>{{$surv->alias_survey }}</td>
-	      <td>{{$surv->year }}</td>
+	      <td>{{date('d-m-Y', strtotime($surv->year)) }}</td>
 	      <td>
 	      	<a href="#"  class="btn btn-primary edit">Modifier</a>
 	      	<a href="#" class="btn btn-danger delete">Supprimer</a>
@@ -301,7 +301,7 @@
                'language': 
             {
               "sEmptyTable":     "Aucune donnée disponible dans le tableau",
-              "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+              "sInfo":           "Affichage de l'élément _START_ jusqu'à _END_ sur _TOTAL_ éléments.",
               "sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
               "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
               "sInfoPostFix":    "",

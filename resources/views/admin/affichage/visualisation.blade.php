@@ -44,6 +44,9 @@
     <link href="{{ asset('admin')}}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <style>
+        .center {
+          text-align: center;
+        }
           .panel-heading{
             word-wrap: break-word;
           }
@@ -157,7 +160,7 @@
 
             <!--<center>-->
 
-                <span style="margin-left: 25px;"><strong>Pseudo enquête:</strong></span>
+                <span style="margin-left: 5px;"><strong>Pseudo de l'enquête:</strong></span>
                 <select style="width: 120px; " class="surveyname" name="survey"  id="survey">
                     <option value="0" disabled="true" style="width: 100px;> selectionner un enquête</option>
                            @foreach( $surveys as $key => $value)
@@ -169,14 +172,14 @@
                           @endforeach
                     </select>
 
-                <span style="margin-left: 10px;"><strong>Enquête:</strong></span>
-                <input type="typsurvey" name="typsurvey" class="typsurvey" id="typsurvey" value="{{$typsurvey->name}}" style="width: 100px;">
+                <span style="margin-left: 5px;"><strong>Nom de l'enquête:</strong></span>
+                <input type="typsurvey" name="typsurvey" class="typsurvey" id="typsurvey" value="{{$typsurvey->name}}" style="width: 70px;">
 
-                <span style="margin-left: 10px;"><strong>Année:</strong></span>
-                    <input type="text" name="year" class="year" id="year" value="{{$year->year}}" style="width: 100px;">
+                <span style="margin-left: 5px;"><strong>Date de publication:</strong></span>
+                    <input type="text" name="year" class="year" id="year" value="{{date('d-m-Y', strtotime($year->year))}}" style="width: 90px;">
 
 
-                <span style="margin-left: 10px;"><strong>indicateur:</strong></span>
+                <span style="margin-left: 5px;"><strong>Indicateur:</strong></span>
                     <select style="width: 200px;" id="indicators" name="indicators" >
 
                         <option value="0" disabled="true" style="width: 200px;">selectionner un indicateur</option>
@@ -193,14 +196,14 @@
 
                     </select>
 
-                <span style="margin-left: 10px;"><strong>Types graphe:</strong></span>
+                <span style="margin-left: 5px;"><strong>Type de la graphe:</strong></span>
                  <select style="width: 195px;" id="chartSelect" name="chartSelect">
-                  <option value="" selected>Choisir un type de graphes</option>
-                    <option value="bar">Barre</option>
+                  <option value="" selected>Choisir un type de la graphe</option>
+                    <option value="bar">Histogramme</option>
                     <!--<option value="radar">Radar</option>-->
                     <option value="polarArea">Polaire</option>
-                    <option value="pie">Camember</option>
-                    <option value="doughnut">Doughnut</option>
+                    <option value="pie">Secteur</option>
+                    <option value="doughnut">Anneau</option>
                 </select>
                 <!--<button type="button" id="affich" class="btn btn-secondary" style="margin-left: 20px;">
                 Graphique
@@ -220,11 +223,11 @@
                   <span><strong>Madagascar:</strong></span>
                   <input type="ensemble" name="ensemble" class="ensemble" id="ensemble" value="{{(isset($ensembles->ensemble))?$ensembles->ensemble:''}}">
 
-                  <span><strong>Milieu Urbain:</strong></span>
+                  <span><strong>Milieu urbain:</strong></span>
                   <input type="text" name="urbain" class="urbain" id="urbain" value="{{(isset($ensembles->urbain))?$ensembles->urbain:''}}">
 
 
-                  <span><strong>Milieu Rural:</strong></span>
+                  <span><strong>Milieu rural:</strong></span>
                   <input type="text" name="rural" class="rural" id="rural" value="{{(isset($ensembles->rural))?$ensembles->rural:''}}">
 
                  <br> <br>
@@ -282,8 +285,8 @@
                         <table class="table table-bordered  table-striped table-dark" id="value_indicator">
                               <thead>
                                   <tr>
-                                      <th width="200px">Nom Region</th>
-                                      <th width="200px">Valeur</th>
+                                      <th width="200px">Nom de la région</th>
+                                      <th style="text-align:center" width="200px">Valeur</th>
                                   </tr>
                               </thead>
                         </table>
@@ -796,12 +799,12 @@
                'language':
                 {
                   "sEmptyTable":     "Aucune donnée disponible dans le tableau",
-                  "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                  "sInfo":           "Affichage de l'élément _START_ jusqu'à _END_ sur _TOTAL_ éléments",
                   "sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
                   "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
                   "sInfoPostFix":    "",
                   "sInfoThousands":  ",",
-                  "sLengthMenu":     "_MENU_ resultats",
+                  "sLengthMenu":     "_MENU_ résultats",
                   "sLoadingRecords": "Chargement...",
                   "sProcessing":     "Traitement...",
                   "sSearch":         "Rechercher :",
@@ -833,12 +836,14 @@
 
                        {
                           data:'name',
-                          name:'name'
+                          name:'name',
+
 
                        },
                        {
                           data:'value',
-                          name:'value'
+                          name:'value',
+                          className: 'center'
 
                        }
                 ]
