@@ -883,7 +883,7 @@
               var k = divids;
               console.log(k);
               console.log(divids);
-              for (var i = 0; i < 4; i++) {
+              for (var i = 1; i < 4; i++) {
                 j += k;
 
                 switch(i) {
@@ -910,23 +910,28 @@
                 for(i = 0; i < regions.length; i++) {
                   if(regions[i].population < range[0]) {
                     index = 0;
+                    console.log(index);
                   }
                   else if(regions[i].population > range[0] && regions[i].population < range[1]) {
                     index = 1;
+                    console.log(index);
                   }
                   else if(regions[i].population > range[1] && regions[i].population < range[2]) {
                     index = 2;
+                    console.log(index);
                   }
                   else if(regions[i].population > range[2] && regions[i].population < range[3]) {
                     index = 3;
+                    console.log(index);
                   }
                     $('#'+ regions[i].region_code)
-                    .css({'fill': 'rgb(128,64,0,' + range[index]/Math.ceil(max) +')'})
+                    .css({'fill': 'rgb(128,64,0,' + (range[index]/Math.ceil(max)).toFixed(1) +')'})
                     .data('region', regions[i]);
+                    console.log('rgb(128,64,0,' + (range[index]/Math.ceil(max)).toFixed(1) +')' + ' ' + regions[i]);
                 }
               });
               for(var i=0; i < 4; i++) {
-                 $('#color'+[i]).css('fill', 'rgb(128,64,0,' + range[i]/Math.ceil(max));
+                 $('#color'+[i]).css('fill', 'rgb(128,64,0,' + (range[i]/Math.ceil(max)).toFixed(1));
                  $('#val'+[i]).empty();
                  if (i == 0) {
                   $('#val'+[i]).html(0 + ' à ' + range[0]);
